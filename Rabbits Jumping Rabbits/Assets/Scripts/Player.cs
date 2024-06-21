@@ -30,7 +30,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space)) Jump();
+        if (Input.GetKeyDown(KeyCode.Space)) Jump();
+        if (Input.GetKey(KeyCode.Space)) JumpHigher();
     }
 
     public void Jump()
@@ -39,12 +40,16 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
+    }
 
-        if (rb.velocity.y > 0f)
+    public void JumpHigher()
+    {
+        if (groundedCD<=0.5)
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y+jumpingPower*Time.deltaTime*3.5f);
         }
     }
+
 
     private bool IsGrounded()
     {
