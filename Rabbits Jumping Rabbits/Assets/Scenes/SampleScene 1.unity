@@ -378,6 +378,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!4 &1792335323 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2856761440601312276, guid: b803a412f2cff664d92704010d4c1b8a, type: 3}
+  m_PrefabInstance: {fileID: 1627206448527379255}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1843848239 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4983024313083962459, guid: b803a412f2cff664d92704010d4c1b8a, type: 3}
@@ -434,6 +439,18 @@ PrefabInstance:
     - target: {fileID: 4503342449401132496, guid: b803a412f2cff664d92704010d4c1b8a, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5301708955893084862, guid: b803a412f2cff664d92704010d4c1b8a, type: 3}
+      propertyPath: m_GravityScale
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6119822505005589573, guid: b803a412f2cff664d92704010d4c1b8a, type: 3}
+      propertyPath: transform
+      value: 
+      objectReference: {fileID: 1792335323}
+    - target: {fileID: 6119822505005589573, guid: b803a412f2cff664d92704010d4c1b8a, type: 3}
+      propertyPath: jumpingPower
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6119822505005589573, guid: b803a412f2cff664d92704010d4c1b8a, type: 3}
       propertyPath: groundCheckLeft
