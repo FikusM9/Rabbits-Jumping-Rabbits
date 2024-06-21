@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public LayerMask groundLayer;
     public Transform groundCheckLeft;
     public Transform groundCheckRight;
+    public Transform Circle;
+    public Transform transform;
 
     private bool canJump;
     private float groundedCD;
@@ -38,7 +40,7 @@ public class Player : MonoBehaviour
     {
         if (canJump)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            rb.velocity = new Vector2(jumpingPower * (Circle.position.x - transform.position.x), jumpingPower * (Circle.position.y - transform.position.y));
         }
     }
 
@@ -48,6 +50,8 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y+jumpingPower*Time.deltaTime*3.5f);
         }
+
+        
     }
 
 
