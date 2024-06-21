@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,18 +45,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void JumpHigher()
-    {
-        if (groundedCD<=0.5)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y+jumpingPower*Time.deltaTime*3.5f);
-        }
 
-        
+    public void JumpHigher() 
+    {
+       if (groundedCD<0.5) 
+       {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y+jumpingPower*Time.deltaTime*3.5f);
+       }
     }
 
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheckLeft.position, 0.02f, groundLayer) || Physics2D.OverlapCircle(groundCheckRight.position, 0.02f, groundLayer);
     }
