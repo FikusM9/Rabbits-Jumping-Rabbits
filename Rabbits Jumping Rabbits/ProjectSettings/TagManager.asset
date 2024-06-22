@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Zid
   layers:
   - Default
   - TransparentFX
@@ -12,7 +13,8 @@ TagManager:
   - Water
   - UI
   - Ground
-  - Player
+  - Player1
+  - Player2
   - 
   - 
   - 
@@ -35,8 +37,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Zid
   m_SortingLayers:
   - name: Default
     uniqueID: 0

@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     public Transform groundCheckLeft;
     public Transform groundCheckRight;
     public Transform Circle;
+    public int layerNumber;
+    public KeyCode key;
+    public float tolerance;
+    public float collisionPower;
 
     private bool canJump;
     private float groundedCD;
@@ -32,14 +36,14 @@ public class Player : MonoBehaviour
         if (groundedCD <= 0.1f) canJump = true;
         else canJump = false;
 
-        if (rb.velocity.y > 0) Physics2D.IgnoreLayerCollision(7, 6, true);
-        else Physics2D.IgnoreLayerCollision(7, 6, false);
+        if (rb.velocity.y > 0) Physics2D.IgnoreLayerCollision(layerNumber, 6, true);
+        else Physics2D.IgnoreLayerCollision(layerNumber, 6, false);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) Jump();
-        if (Input.GetKey(KeyCode.Space)) JumpHigher();
+        if (Input.GetKeyDown(key)) Jump();
+        if (Input.GetKey(key)) JumpHigher();
     }
 
     public void Jump()
@@ -64,5 +68,28 @@ public class Player : MonoBehaviour
     public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheckLeft.position, 0.02f, groundLayer) || Physics2D.OverlapCircle(groundCheckRight.position, 0.02f, groundLayer);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            print("sdfnjo");
+            rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * collisionPower;
+            if (transform.position.y+tolerance < collision.gameObject.transform.position.y)
+            {
+                Destroy(gameObject);
+            }
+            
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Zid"))
+        {
+            rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y + collisionPower);
+
+        }
     }
 }
