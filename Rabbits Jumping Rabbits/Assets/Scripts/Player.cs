@@ -12,10 +12,10 @@ public class Player : MonoBehaviour
     public Transform groundCheckLeft;
     public Transform groundCheckRight;
     public Transform Circle;
-    public Transform transform;
 
     private bool canJump;
     private float groundedCD;
+    private float jumpHigherCD;
     void Start()
     {
         rb=GetComponent<Rigidbody2D>();
@@ -24,11 +24,16 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        jumpHigherCD += Time.fixedDeltaTime;
+
         if (!IsGrounded()) groundedCD += Time.fixedDeltaTime;
         else groundedCD = 0;
 
         if (groundedCD <= 0.1f) canJump = true;
         else canJump = false;
+
+        if (rb.velocity.y > 0) Physics2D.IgnoreLayerCollision(7, 6, true);
+        else Physics2D.IgnoreLayerCollision(7, 6, false);
     }
 
     private void Update()
@@ -42,15 +47,16 @@ public class Player : MonoBehaviour
         if (canJump)
         {
             rb.velocity = new Vector2(jumpingPower * (Circle.position.x - transform.position.x), jumpingPower * (Circle.position.y - transform.position.y));
+            jumpHigherCD = 0;
         }
     }
 
 
     public void JumpHigher() 
     {
-       if (groundedCD<0.5) 
+       if (jumpHigherCD<0.5 && !IsGrounded()) 
        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y+jumpingPower*Time.deltaTime*3.5f);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y+jumpingPower*Time.deltaTime*5.5f);
        }
     }
 

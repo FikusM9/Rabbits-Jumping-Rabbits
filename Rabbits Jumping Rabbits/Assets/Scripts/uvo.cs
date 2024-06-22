@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class uvo : MonoBehaviour
 {
@@ -33,14 +34,14 @@ public class uvo : MonoBehaviour
 
     private void FixedUpdate()
     {
-        wiggledir.localRotation = Quaternion.Euler(0, 0, angle +Mathf.Sin(Time.time * wigglespeed) * wigglemagnitude);
-        segpos[0] = targetdir.position;
+        wiggledir.localRotation = Quaternion.Euler(0, angle + Mathf.Sin(Time.time * wigglespeed) * wigglemagnitude, 0);
+        segpos[0] = targetdir.position+targetdir.right;
         segpos[0].z = 2;
         if (!player.IsGrounded())
         {
             for (int i = 1; i < segpos.Length; i++)
             {
-                segpos[i] = Vector3.SmoothDamp(segpos[i], segpos[i - 1] + (segpos[i] - segpos[i - 1]).normalized * targetdist, ref segspeed[i], smoothspeed);
+                segpos[i] = Vector3.SmoothDamp(segpos[i], segpos[i - 1] + (segpos[i] - segpos[i - 1]).normalized * targetdist , ref segspeed[i], smoothspeed);
                 segpos[i].z = 2;
             }
         }
@@ -49,7 +50,7 @@ public class uvo : MonoBehaviour
         {
             for (int i = 1; i < segpos.Length; i++)
             {
-                 segpos[i] = Vector3.SmoothDamp(segpos[i], segpos[i - 1] + (segpos[i] - segpos[i - 1]+new Vector3(0, 0.1f, 0)).normalized * targetdist, ref segspeed[i], smoothspeed);
+                 segpos[i] = Vector3.SmoothDamp(segpos[i], segpos[i - 1] + (segpos[i] - segpos[i - 1] + new Vector3(0, 0.1f, 0)).normalized * targetdist , ref segspeed[i], smoothspeed);
             }
         }
     }
