@@ -2152,7 +2152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: AngleSpeed
-      value: 1.5
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 6763486866572682280, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_Layer
