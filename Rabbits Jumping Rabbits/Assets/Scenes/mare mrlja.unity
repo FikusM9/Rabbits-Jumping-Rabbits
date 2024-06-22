@@ -2139,6 +2139,7 @@ MonoBehaviour:
   powerups:
   - {fileID: 3772835636131197180, guid: 993c10681dcff4cf29de35761f6b5c94, type: 3}
   - {fileID: 6956107810468426515, guid: e86a8bb2996664622bda89df877c536b, type: 3}
+  - {fileID: 3599298163020712104, guid: 44bec64eb26ae4c8085e2fda19e6334a, type: 3}
   spawnPoints:
   - {fileID: 2017788944}
   - {fileID: 2122875190}

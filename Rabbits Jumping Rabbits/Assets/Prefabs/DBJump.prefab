@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5162654931745223952}
   - component: {fileID: 5969081368721844823}
   - component: {fileID: 8512552359285013925}
+  - component: {fileID: -5401364850452225699}
   m_Layer: 19
   m_Name: DBJump
   m_TagString: DBJump
@@ -120,3 +121,16 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
+--- !u!114 &-5401364850452225699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3772835636131197180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3617dc93e1046089285b94bebbbe39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 8449387851122995468, guid: 4de749ba74e1c4634977fd912b89b9a8, type: 3}

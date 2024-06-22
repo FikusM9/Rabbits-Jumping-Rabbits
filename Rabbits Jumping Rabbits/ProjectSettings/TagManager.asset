@@ -9,6 +9,7 @@ TagManager:
   - Tim2
   - DBJump
   - HighJump
+  - Doubler
   layers:
   - Default
   - TransparentFX

@@ -124,6 +124,11 @@ public class Player : MonoBehaviour
                 highJumpTimer = highJumpTime;
             }
 
+            if (collision.gameObject.CompareTag("Doubler"))
+            {
+                Instantiate(gameObject, transform.position + new Vector3(5, 5, 0), transform.rotation);
+            }
+
             Destroy(collision.gameObject);
         }
     }
