@@ -1847,6 +1847,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
+    - target: {fileID: 4503342449401132496, guid: 58c28e83519319042b714e8110108066, type: 3}
+      propertyPath: m_TagString
+      value: Tim1
+      objectReference: {fileID: 0}
     - target: {fileID: 5301708955893084862, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_BodyType
       value: 0
@@ -2110,6 +2114,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4503342449401132496, guid: 58c28e83519319042b714e8110108066, type: 3}
+      propertyPath: m_TagString
+      value: Tim2
+      objectReference: {fileID: 0}
     - target: {fileID: 5301708955893084862, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_BodyType
       value: 0
@@ -2137,6 +2145,14 @@ PrefabInstance:
     - target: {fileID: 6119822505005589573, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: layerNumber
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
+      propertyPath: Angle
+      value: 2.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
+      propertyPath: AngleSpeed
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6763486866572682280, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_Layer
@@ -2181,7 +2197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2856761440601312276, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2
+      value: 2.87
       objectReference: {fileID: 0}
     - target: {fileID: 2856761440601312276, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2239,6 +2255,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4503342449401132496, guid: 58c28e83519319042b714e8110108066, type: 3}
+      propertyPath: m_TagString
+      value: Tim1
+      objectReference: {fileID: 0}
     - target: {fileID: 5704635567726261216, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -2254,6 +2274,10 @@ PrefabInstance:
     - target: {fileID: 6119822505005589573, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: layerNumber
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
+      propertyPath: Angle
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 6763486866572682280, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_Layer
@@ -2514,6 +2538,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4503342449401132496, guid: 58c28e83519319042b714e8110108066, type: 3}
+      propertyPath: m_TagString
+      value: Tim2
+      objectReference: {fileID: 0}
     - target: {fileID: 5301708955893084862, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_BodyType
       value: 0
@@ -2541,6 +2569,10 @@ PrefabInstance:
     - target: {fileID: 6119822505005589573, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: layerNumber
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
+      propertyPath: Angle
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 6763486866572682280, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_Layer

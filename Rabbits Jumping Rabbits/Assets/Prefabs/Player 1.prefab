@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6124425665638777506}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GoundCheckLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ MonoBehaviour:
   Circle: {fileID: 6960820144419607355}
   layerNumber: 0
   key: 0
-  tolerance: 1.5
+  tolerance: 1.7
   collisionPower: 25
 --- !u!1 &6763486866572682280
 GameObject:
@@ -228,7 +228,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4983024313083962459}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GoundCheckRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 6960820144419607355}
   - component: {fileID: 1243230914177136746}
   - component: {fileID: 6597925548855640150}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,13 +359,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2856761440601312276}
     m_Modifications:
+    - target: {fileID: 381678468025327635, guid: 6834fc575c529584db8564dcc226db02, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6454338359442371839, guid: 6834fc575c529584db8564dcc226db02, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 6119822505005589573}
+    - target: {fileID: 6817207538092793654, guid: 6834fc575c529584db8564dcc226db02, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7796552824510242439, guid: 6834fc575c529584db8564dcc226db02, type: 3}
       propertyPath: m_Name
       value: LevoUvo
+      objectReference: {fileID: 0}
+    - target: {fileID: 7796552824510242439, guid: 6834fc575c529584db8564dcc226db02, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8015819161051560026, guid: 6834fc575c529584db8564dcc226db02, type: 3}
       propertyPath: m_LocalPosition.x
@@ -429,6 +441,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DesnoUvo
       objectReference: {fileID: 0}
+    - target: {fileID: 1466381193227673444, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2919965053595533086, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4482032531947250936, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.4
@@ -473,6 +493,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 6119822505005589573}
+    - target: {fileID: 8682543364221837340, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

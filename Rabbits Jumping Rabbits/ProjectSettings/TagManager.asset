@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Zid
+  - Tim1
+  - Tim2
   layers:
   - Default
   - TransparentFX

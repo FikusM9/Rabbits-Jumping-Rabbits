@@ -19,6 +19,7 @@ public class uvo : MonoBehaviour
     public float angle;
     public Player player;
 
+
     private Vector3[] segspeed;
 
     private void Start()
