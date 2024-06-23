@@ -5,25 +5,26 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
 
-public class Player : MonoBehaviour
+public class Clone : MonoBehaviour
 {
+    public GameObject playa;
     public Rigidbody2D rb;
-    public float jumpingPower;
+    private float jumpingPower;
     public LayerMask groundLayer;
     public Transform groundCheckLeft;
     public Transform groundCheckRight;
     public Transform Circle;
     public int layerNumber;
     public KeyCode key;
-    public float tolerance;
-    public float collisionPower;
-    public float dbjumpTime;
-    public float highJumpTime;
-    public float jumpHigherPower;
-    public float enemyBouncePower;
-    public float teammateBouncePower;
-    public float highJumpPower;
-    public GameObject clone;
+    private float tolerance;
+    private float collisionPower;
+    private float dbjumpTime;
+    private float highJumpTime;
+    private float jumpHigherPower;
+    private float enemyBouncePower;
+    private float teammateBouncePower;
+    private float highJumpPower;
+    public float life;
 
     private int canJump;
     private int canDoubleJump;
@@ -32,12 +33,25 @@ public class Player : MonoBehaviour
     private float jumpHigherCD;
     private float highJump;
     private float highJumpTimer;
+    private Player original;
+
     void Start()
     {
+        original = playa.GetComponent<Player>();
         rb = GetComponent<Rigidbody2D>();
         canDoubleJump = 0;
         canJump = 1;
         highJump = 1;
+
+        jumpingPower = original.jumpingPower;
+        tolerance = original.tolerance;
+        collisionPower = original.collisionPower;
+        dbjumpTime = original.dbjumpTime;
+        highJumpTime = original.highJumpTime;
+        jumpHigherPower = original.jumpHigherPower;
+        enemyBouncePower = original.enemyBouncePower;
+        teammateBouncePower = original.teammateBouncePower;
+        highJumpPower = original.highJumpPower;
     }
 
     void FixedUpdate()
@@ -59,6 +73,9 @@ public class Player : MonoBehaviour
 
         if (highJumpTimer > 0) highJumpTimer -= Time.fixedDeltaTime;
         else highJump = 1;
+
+        life -= Time.fixedDeltaTime;
+        if (life < 0) Destroy(gameObject);
     }
 
     private void Update()
@@ -94,10 +111,10 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Tim2") || collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Tim2"))
         {
             print("sdfnjo");
-            if ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Player"))
+            if ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1"))
             {
                 rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * enemyBouncePower;
             }
@@ -105,7 +122,7 @@ public class Player : MonoBehaviour
             {
                 rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * teammateBouncePower;
             }
-            if (transform.position.y + tolerance < collision.gameObject.transform.position.y && ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || (collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1")) || collision.gameObject.CompareTag("Player")))
+            if (transform.position.y + tolerance < collision.gameObject.transform.position.y && ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1")))
             {
                 Destroy(gameObject);
             }
@@ -138,7 +155,7 @@ public class Player : MonoBehaviour
 
             if (collision.gameObject.CompareTag("Doubler"))
             {
-                Instantiate(clone, transform.position + new Vector3(5, 5, 0), transform.rotation);
+                Instantiate(gameObject, transform.position + new Vector3(5, 5, 0), transform.rotation);
             }
 
             Destroy(collision.gameObject);

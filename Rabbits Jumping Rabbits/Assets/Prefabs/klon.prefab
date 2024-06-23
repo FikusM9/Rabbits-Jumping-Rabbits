@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 4438863343111943079}
   - component: {fileID: 5301708955893084862}
   - component: {fileID: 5143571285255461909}
-  - component: {fileID: 6119822505005589573}
+  - component: {fileID: 3217411297937606559}
   m_Layer: 7
-  m_Name: Player 1
+  m_Name: klon
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,7 +195,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6119822505005589573
+--- !u!114 &3217411297937606559
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,28 +204,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 4503342449401132496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fa45e7955c07074cb7e6790eebb6d94, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d7a365ae2d7249c99c2bcff9899effb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playa: {fileID: 4503342449401132496, guid: 58c28e83519319042b714e8110108066, type: 3}
   rb: {fileID: 5301708955893084862}
-  jumpingPower: 32
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   groundCheckLeft: {fileID: 6124425665638777506}
   groundCheckRight: {fileID: 4983024313083962459}
   Circle: {fileID: 6960820144419607355}
-  layerNumber: 0
+  layerNumber: 9
   key: 0
-  tolerance: 1.7
-  collisionPower: 25
-  dbjumpTime: 8
-  highJumpTime: 8
-  jumpHigherPower: 1.8
-  enemyBouncePower: 25
-  teammateBouncePower: 60
-  highJumpPower: 1.5
-  clone: {fileID: 4503342449401132496, guid: fd9e1ce17666f4e7cbc4f0f022fc52ff, type: 3}
+  life: 8
 --- !u!1 &6763486866572682280
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,10 +363,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 6454338359442371839, guid: 6834fc575c529584db8564dcc226db02, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 6119822505005589573}
     - target: {fileID: 6817207538092793654, guid: 6834fc575c529584db8564dcc226db02, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -497,10 +485,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8593122632075812295, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 6119822505005589573}
     - target: {fileID: 8682543364221837340, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
       propertyPath: m_Layer
       value: 7
