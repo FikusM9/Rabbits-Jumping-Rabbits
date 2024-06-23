@@ -1861,7 +1861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4503342449401132496, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_TagString
-      value: Tim1
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5301708955893084862, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_BodyType
@@ -2144,7 +2144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4503342449401132496, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_TagString
-      value: Tim2
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5301708955893084862, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_BodyType
@@ -2305,7 +2305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4503342449401132496, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_TagString
-      value: Tim1
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5704635567726261216, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_Layer
@@ -2604,7 +2604,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4503342449401132496, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_TagString
-      value: Tim2
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5301708955893084862, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_BodyType
