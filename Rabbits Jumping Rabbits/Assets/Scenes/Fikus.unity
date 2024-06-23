@@ -1871,6 +1871,10 @@ PrefabInstance:
       propertyPath: layerNumber
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
+      propertyPath: Angle
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2148,11 +2152,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: Angle
-      value: 2.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: AngleSpeed
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
+      propertyPath: startAngle
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6763486866572682280, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_Layer
@@ -2277,7 +2285,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: Angle
-      value: 0.8
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
+      propertyPath: startAngle
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6763486866572682280, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_Layer
@@ -2572,7 +2584,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: Angle
-      value: 1.6
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6597925548855640150, guid: 58c28e83519319042b714e8110108066, type: 3}
+      propertyPath: startAngle
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6763486866572682280, guid: 58c28e83519319042b714e8110108066, type: 3}
       propertyPath: m_Layer

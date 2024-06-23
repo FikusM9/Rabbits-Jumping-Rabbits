@@ -9,17 +9,19 @@ public class DirectionScript : MonoBehaviour
 {
     public Transform Transform;
     public Transform PlayerTransform;
-    public float Angle = 0;
     public float AngleSpeed;
-    private int Smer = 1;
     public float distance;
-    // Start is called before the first frame update
+    public int startAngle;
+
+    private float Angle = 0;
+    private int Smer = 1;
+
     void Start()
     {
-        
+        Angle = startAngle * Time.fixedDeltaTime * AngleSpeed;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         
@@ -27,9 +29,9 @@ public class DirectionScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Angle += Smer * Time.fixedDeltaTime * AngleSpeed;
         if (Angle > 170) Smer = -1;
         if (Angle < 10) Smer = 1;
+        Angle += Smer * Time.fixedDeltaTime * AngleSpeed;
 
         Transform.position = new Vector3(Mathf.Cos(Angle / 180 * 3.141f) * distance, Mathf.Sin(Angle / 180 * 3.141f) *distance, 0) + PlayerTransform.position;
 

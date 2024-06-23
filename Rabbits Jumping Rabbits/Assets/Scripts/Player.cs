@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     public float collisionPower;
     public float dbjumpTime;
     public float highJumpTime;
+    public float jumpHigherPower;
+    public float enemyBouncePower;
+    public float teammateBouncePower;
 
     private int canJump;
     private int canDoubleJump;
@@ -66,7 +69,7 @@ public class Player : MonoBehaviour
     {
         if (canJump > 0)
         {
-            rb.velocity = new Vector2(jumpingPower * highJump * (Circle.position.x - transform.position.x), jumpingPower * (Circle.position.y - transform.position.y));
+            rb.velocity = new Vector2(jumpingPower * highJump * (Circle.position - transform.position).normalized.x, jumpingPower * (Circle.position - transform.position).normalized.y);
             jumpHigherCD = 0;
             canJump--;
         }
@@ -77,7 +80,7 @@ public class Player : MonoBehaviour
     {
         if (jumpHigherCD < 0.5 && !IsGrounded())
         {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpingPower * highJump * Time.deltaTime * 5.5f);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpingPower * highJump * Time.deltaTime * jumpHigherPower);
         }
     }
 
@@ -92,7 +95,14 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Tim2"))
         {
             print("sdfnjo");
-            rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * collisionPower;
+            if ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1"))
+            {
+                rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * enemyBouncePower;
+            }
+            else
+            {
+                rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * teammateBouncePower;
+            }
             if (transform.position.y + tolerance < collision.gameObject.transform.position.y && ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1")))
             {
                 Destroy(gameObject);

@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5301708955893084862}
-  jumpingPower: 10
+  jumpingPower: 32
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -219,6 +219,11 @@ MonoBehaviour:
   key: 0
   tolerance: 1.7
   collisionPower: 25
+  dbjumpTime: 0
+  highJumpTime: 0
+  jumpHigherPower: 1.8
+  enemyBouncePower: 25
+  teammateBouncePower: 60
 --- !u!1 &6763486866572682280
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,9 +354,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Transform: {fileID: 6960820144419607355}
   PlayerTransform: {fileID: 2856761440601312276}
-  Angle: 0
   AngleSpeed: 120
   distance: 4
+  startAngle: 0
 --- !u!1001 &1274934241477733590
 PrefabInstance:
   m_ObjectHideFlags: 0
