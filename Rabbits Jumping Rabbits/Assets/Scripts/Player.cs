@@ -92,10 +92,10 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Tim2"))
+        if (collision.gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Tim2") || collision.gameObject.CompareTag("Player"))
         {
             print("sdfnjo");
-            if ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1"))
+            if ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Player"))
             {
                 rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * enemyBouncePower;
             }
@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
             {
                 rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * teammateBouncePower;
             }
-            if (transform.position.y + tolerance < collision.gameObject.transform.position.y && ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1")))
+            if (transform.position.y + tolerance < collision.gameObject.transform.position.y && ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || (collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1")) || collision.gameObject.CompareTag("Player")))
             {
                 Destroy(gameObject);
             }
