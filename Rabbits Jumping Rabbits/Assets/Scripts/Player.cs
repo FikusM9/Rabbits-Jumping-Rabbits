@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
@@ -19,11 +20,16 @@ public class Player : MonoBehaviour
     public float collisionPower;
     public float dbjumpTime;
     public float highJumpTime;
+    public float bigTime;
+    public float smallTime;
     public float jumpHigherPower;
     public float enemyBouncePower;
     public float teammateBouncePower;
     public float highJumpPower;
     public GameObject clone;
+    public float gravityUp;
+    public float gravityDown;
+    public float gravitySmashDown;
 
     private int canJump;
     private int canDoubleJump;
@@ -32,6 +38,9 @@ public class Player : MonoBehaviour
     private float jumpHigherCD;
     private float highJump;
     private float highJumpTimer;
+    private float bigTimer;
+    private float smallTimer;
+    private bool smashingDown;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,6 +51,11 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (IsGrounded()) smashingDown = false;
+        if (rb.velocity.y > 0) rb.gravityScale = gravityUp;
+        else if (!smashingDown) rb.gravityScale = gravityDown;
+        else rb.gravityScale = gravitySmashDown;
+
         jumpHigherCD += Time.fixedDeltaTime;
 
         if (!IsGrounded()) groundedCD += Time.fixedDeltaTime;
@@ -59,6 +73,17 @@ public class Player : MonoBehaviour
 
         if (highJumpTimer > 0) highJumpTimer -= Time.fixedDeltaTime;
         else highJump = 1;
+
+        if (bigTimer > 0 || smallTimer > 0)
+        {
+            bigTimer -= Time.fixedDeltaTime;
+            smallTimer -= Time.fixedDeltaTime;
+        }
+        else
+        {
+            transform.localScale = new Vector3(2, 2, 2);
+            Circle.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
     }
 
     private void Update()
@@ -74,6 +99,11 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(jumpingPower * highJump * (Circle.position - transform.position).normalized.x, jumpingPower * (Circle.position - transform.position).normalized.y);
             jumpHigherCD = 0;
             canJump--;
+        }
+        else if (!IsGrounded())
+        {
+            smashingDown = true;
+            rb.velocity= new Vector2(rb.velocity.x*0.5f, rb.velocity.y);
         }
     }
 
@@ -96,19 +126,19 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Tim2") || collision.gameObject.CompareTag("Player"))
         {
-            print("sdfnjo");
             if ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Player"))
             {
+                print("gagafgafgag");
                 rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * enemyBouncePower;
             }
             else
             {
                 rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * teammateBouncePower;
             }
-            if (transform.position.y + tolerance < collision.gameObject.transform.position.y && ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || (collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1")) || collision.gameObject.CompareTag("Player")))
+            /*/if (transform.position.y + tolerance < collision.gameObject.transform.position.y && ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || (collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1")) || collision.gameObject.CompareTag("Player")))
             {
                 Destroy(gameObject);
-            }
+            }/*/
 
         }
     }
@@ -139,6 +169,20 @@ public class Player : MonoBehaviour
             if (collision.gameObject.CompareTag("Doubler"))
             {
                 Instantiate(clone, transform.position + new Vector3(5, 5, 0), transform.rotation);
+            }
+
+            if (collision.gameObject.CompareTag("Big"))
+            {
+                transform.localScale =new Vector3(4,4,4);
+                Circle.localScale = new Vector3(0.25f,0.25f,0.25f);
+                bigTimer = bigTime;
+            }
+
+            if (collision.gameObject.CompareTag("Small"))
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+                Circle.localScale = new Vector3(1f, 1f, 1f);
+                smallTimer = smallTime;
             }
 
             Destroy(collision.gameObject);

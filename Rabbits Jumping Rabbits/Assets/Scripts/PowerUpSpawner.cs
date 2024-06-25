@@ -10,7 +10,6 @@ public class PowerUpSpawner : MonoBehaviour
 
     private float spawnTimer;
 
-    // Start is called before the first frame update
     void Start()
     {
         spawnTimer = 0;
@@ -29,7 +28,6 @@ public class PowerUpSpawner : MonoBehaviour
 
         }
     }
-    // Update is called once per frame
     void Update()
     {
 

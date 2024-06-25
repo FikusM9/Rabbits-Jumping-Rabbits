@@ -18,7 +18,6 @@ public class PowerUpScript : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    // Update is called once per frame
     void Update()
     {
 
