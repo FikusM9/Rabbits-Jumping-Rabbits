@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     public float gravityUp;
     public float gravityDown;
     public float gravitySmashDown;
+    public float velocityBefore;
 
     private int canJump;
     private int canDoubleJump;
@@ -84,6 +85,7 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(2, 2, 2);
             Circle.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
+        velocityBefore = rb.velocity.y;
     }
 
     private void Update()
@@ -128,18 +130,12 @@ public class Player : MonoBehaviour
         {
             if ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Player"))
             {
-                print("gagafgafgag");
                 rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * enemyBouncePower;
             }
             else
             {
                 rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * teammateBouncePower;
             }
-            /*/if (transform.position.y + tolerance < collision.gameObject.transform.position.y && ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || (collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1")) || collision.gameObject.CompareTag("Player")))
-            {
-                Destroy(gameObject);
-            }/*/
-
         }
     }
 

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class glava : MonoBehaviour
 {
+
+    public Player player;
     void Start()
     {
         
@@ -15,7 +17,7 @@ public class glava : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Noge"))
+        if (collision.gameObject.CompareTag("Noge") && player.velocityBefore > collision.gameObject.transform.parent.gameObject.GetComponent<Player>().velocityBefore)
         {
             Destroy(transform.parent.gameObject);
         }
