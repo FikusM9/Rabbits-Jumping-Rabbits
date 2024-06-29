@@ -12,12 +12,22 @@ public class DirectionScript : MonoBehaviour
     public float AngleSpeed;
     public float distance;
     public int startAngle;
+    public float startDistance;
+    public float maxAngle;
+    public float minAngle;
+    public float startMaxAngle;
+    public float startMinAngle;
+    public float Angle = 0;
+    public float startAngleSpeed;
 
-    private float Angle = 0;
     private int Smer = 1;
 
     void Start()
     {
+        startDistance = distance;
+        startMaxAngle = maxAngle;
+        startMinAngle = minAngle;
+        startAngleSpeed = AngleSpeed;
         Angle = startAngle * Time.fixedDeltaTime * AngleSpeed;
     }
 
@@ -29,8 +39,8 @@ public class DirectionScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Angle > 170) Smer = -1;
-        if (Angle < 10) Smer = 1;
+        if (Angle > maxAngle) Smer = -1;
+        if (Angle < minAngle) Smer = 1;
         Angle += Smer * Time.fixedDeltaTime * AngleSpeed;
 
         Transform.position = new Vector3(Mathf.Cos(Angle / 180 * 3.141f) * distance, Mathf.Sin(Angle / 180 * 3.141f) *distance, 0) + PlayerTransform.position;

@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public LayerMask groundLayer;
     public Transform groundCheckLeft;
     public Transform groundCheckRight;
-    public Transform Circle;
+    public DirectionScript Circle;
     public int layerNumber;
     public KeyCode key;
     public float tolerance;
@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     public float highJumpTime;
     public float bigTime;
     public float smallTime;
+    public float teleportTime;
     public float jumpHigherPower;
     public float enemyBouncePower;
     public float teammateBouncePower;
@@ -30,7 +31,17 @@ public class Player : MonoBehaviour
     public float gravityUp;
     public float gravityDown;
     public float gravitySmashDown;
-    public float velocityBefore;
+    public Vector2 velocityBefore;
+    public bool smashingDown;
+    public float rocketDistance;
+    public float rocketAnlgeSpeed;
+    public float rocketGravity;
+    public float rocketPower;
+    public float flappyPower;
+    public float flappyTime;
+    public float eggTime;
+    public GameObject jaje;
+    public float eggPower;
 
     private int canJump;
     private int canDoubleJump;
@@ -41,7 +52,13 @@ public class Player : MonoBehaviour
     private float highJumpTimer;
     private float bigTimer;
     private float smallTimer;
-    private bool smashingDown;
+    private float rocketTimer;
+    private bool isRocketing;
+    private bool isFlappy;
+    private float flappyTimer;
+    private bool isEgging;
+    private float eggTimer;
+    private bool canShootEgg;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,8 +69,13 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (IsGrounded()) smashingDown = false;
-        if (rb.velocity.y > 0) rb.gravityScale = gravityUp;
+        if (IsGrounded())
+        {
+            smashingDown = false;
+            canShootEgg = true;
+        }
+        if (isRocketing) rb.gravityScale = rocketGravity;
+        else if (rb.velocity.y > 0) rb.gravityScale = gravityUp;
         else if (!smashingDown) rb.gravityScale = gravityDown;
         else rb.gravityScale = gravitySmashDown;
 
@@ -66,7 +88,7 @@ public class Player : MonoBehaviour
         else if (canJump == 2) canJump = 1;
         else if (canDoubleJump == 0) canJump = 0;
 
-        if (rb.velocity.y > 0) Physics2D.IgnoreLayerCollision(layerNumber, 6, true);
+        if (rb.velocity.y > 0 || isRocketing) Physics2D.IgnoreLayerCollision(layerNumber, 6, true);
         else Physics2D.IgnoreLayerCollision(layerNumber, 6, false);
 
         if (dbjumpTimer > 0) dbjumpTimer -= Time.fixedDeltaTime;
@@ -74,6 +96,30 @@ public class Player : MonoBehaviour
 
         if (highJumpTimer > 0) highJumpTimer -= Time.fixedDeltaTime;
         else highJump = 1;
+
+        if(rocketTimer > 0) rocketTimer -= Time.fixedDeltaTime;
+        else if(rocketTimer < 0)
+        {
+            rocketTimer = 0;
+            Circle.distance = Circle.startDistance;
+            Circle.maxAngle = Circle.startMaxAngle;
+            Circle.minAngle = Circle.startMinAngle;
+            Circle.Angle= Circle.startAngle;
+            Circle.AngleSpeed = Circle.startAngleSpeed;
+            isRocketing = false;
+        }
+
+        if(flappyTimer>0) flappyTimer -= Time.fixedDeltaTime;
+        else
+        {
+            isFlappy = false;
+        }
+
+        if(eggTimer>0) eggTimer -= Time.fixedDeltaTime;
+        else
+        {
+            isEgging = false;
+        }
 
         if (bigTimer > 0 || smallTimer > 0)
         {
@@ -83,9 +129,9 @@ public class Player : MonoBehaviour
         else
         {
             transform.localScale = new Vector3(2, 2, 2);
-            Circle.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            Circle.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
-        velocityBefore = rb.velocity.y;
+        velocityBefore = rb.velocity;
     }
 
     private void Update()
@@ -96,9 +142,23 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
-        if (canJump > 0)
+        if (isRocketing)
         {
-            rb.velocity = new Vector2(jumpingPower * highJump * (Circle.position - transform.position).normalized.x, jumpingPower * (Circle.position - transform.position).normalized.y);
+            rb.velocity = (Vector2)(Circle.transform.position - transform.position).normalized * rocketPower;
+        }
+        else if (isFlappy && !IsGrounded())
+        {
+            rb.velocity = new Vector2(flappyPower * (Circle.transform.position - transform.position).normalized.x, flappyPower * (Circle.transform.position - transform.position).normalized.y);
+        }
+        else if(isEgging && !IsGrounded() && canShootEgg)
+        {
+            canShootEgg = false;
+            Instantiate(jaje, transform.position + new Vector3(0, -2, 0), transform.rotation);
+            rb.velocity = new Vector2(rb.velocity.x, eggPower);
+        }
+        else if (canJump > 0)
+        {
+            rb.velocity = new Vector2(jumpingPower * highJump * (Circle.transform.position - transform.position).normalized.x, jumpingPower * (Circle.transform.position - transform.position).normalized.y);
             jumpHigherCD = 0;
             canJump--;
         }
@@ -112,7 +172,14 @@ public class Player : MonoBehaviour
 
     public void JumpHigher()
     {
-        if (jumpHigherCD < 0.5 && !IsGrounded())
+        if (isRocketing)
+        {
+            rb.velocity = (Vector2)(Circle.transform.position - transform.position).normalized * rocketPower;
+            //rb.velocity += (Vector2)(Circle.transform.position - transform.position).normalized * teleportPower*Time.deltaTime;
+            //transform.position = Vector3.SmoothDamp(transform.position, transform.position+(Circle.transform.position - transform.position).normalized * 1.1f * Circle.distance,ref velocity, 0);
+            //transform.position += (Circle.transform.position - transform.position).normalized*1.1f * Circle.distance;
+        }
+        else if (jumpHigherCD < 0.5 && !IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpingPower * highJump * Time.deltaTime * jumpHigherPower);
         }
@@ -137,15 +204,16 @@ public class Player : MonoBehaviour
                 rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * teammateBouncePower;
             }
         }
+        if (collision.gameObject.CompareTag("Zid") && !isRocketing)
+        {
+            rb.velocity = new Vector2(-velocityBefore.x, velocityBefore.y + collisionPower);
+            print("sdfgjkon");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Zid"))
-        {
-            rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y + collisionPower);
-
-        }
+       
         if (collision.gameObject.layer == 19)
         {
             rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y + collisionPower);
@@ -170,15 +238,37 @@ public class Player : MonoBehaviour
             if (collision.gameObject.CompareTag("Big"))
             {
                 transform.localScale =new Vector3(4,4,4);
-                Circle.localScale = new Vector3(0.25f,0.25f,0.25f);
+                Circle.transform.localScale = new Vector3(0.25f,0.25f,0.25f);
                 bigTimer = bigTime;
             }
 
             if (collision.gameObject.CompareTag("Small"))
             {
                 transform.localScale = new Vector3(1, 1, 1);
-                Circle.localScale = new Vector3(1f, 1f, 1f);
+                Circle.transform.localScale = new Vector3(1f, 1f, 1f);
                 smallTimer = smallTime;
+            }
+
+            if (collision.gameObject.CompareTag("Rocket"))
+            {
+                isRocketing = true;
+                rocketTimer = teleportTime;
+                Circle.distance = rocketDistance;
+                Circle.maxAngle = 1000000;
+                Circle.minAngle = -40;
+                Circle.AngleSpeed = rocketAnlgeSpeed;
+            }
+
+            if (collision.gameObject.CompareTag("Flappy"))
+            {
+                isFlappy = true;
+                flappyTimer = flappyTime;
+            }
+
+            if (collision.gameObject.CompareTag("Egg"))
+            {
+                isEgging=true;
+                eggTimer = eggTime;
             }
 
             Destroy(collision.gameObject);

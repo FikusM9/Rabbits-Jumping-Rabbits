@@ -17,9 +17,16 @@ public class glava : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Noge") && player.velocityBefore > collision.gameObject.transform.parent.gameObject.GetComponent<Player>().velocityBefore)
+        if (collision.gameObject.CompareTag("Noge") && player.velocityBefore.y > collision.gameObject.transform.parent.gameObject.GetComponent<Player>().velocityBefore.y)
         {
             Destroy(transform.parent.gameObject);
+            collision.gameObject.transform.parent.gameObject.GetComponent<Player>().smashingDown = false;
+            
+        }
+        if (collision.gameObject.CompareTag("Jaje"))
+        {
+            Destroy(transform.parent.gameObject);
+            Destroy(collision.transform.gameObject);
         }
     }
 }

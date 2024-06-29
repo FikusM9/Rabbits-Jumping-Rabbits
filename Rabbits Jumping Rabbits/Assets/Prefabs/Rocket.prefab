@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 3769665707225836834}
   - component: {fileID: 623279447819740144}
   m_Layer: 19
-  m_Name: HighJump
-  m_TagString: HighJump
+  m_Name: Rocket
+  m_TagString: Rocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.7209312, g: 1, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.423724, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

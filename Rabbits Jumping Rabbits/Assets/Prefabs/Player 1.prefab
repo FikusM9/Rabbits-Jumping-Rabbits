@@ -188,7 +188,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.36, y: 4.24}
+    oldSize: {x: 0.9688889, y: 0.94222224}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -216,15 +216,16 @@ MonoBehaviour:
     m_Bits: 64
   groundCheckLeft: {fileID: 6124425665638777506}
   groundCheckRight: {fileID: 4983024313083962459}
-  Circle: {fileID: 6960820144419607355}
+  Circle: {fileID: 6597925548855640150}
   layerNumber: 0
   key: 0
   tolerance: 1.7
-  collisionPower: 10
+  collisionPower: 25
   dbjumpTime: 8
   highJumpTime: 8
   bigTime: 8
   smallTime: 8
+  teleportTime: 8
   jumpHigherPower: 1.8
   enemyBouncePower: 25
   teammateBouncePower: 60
@@ -233,7 +234,17 @@ MonoBehaviour:
   gravityUp: 12
   gravityDown: 15
   gravitySmashDown: 40
-  velocityBefore: 0
+  velocityBefore: {x: 0, y: 0}
+  smashingDown: 0
+  rocketDistance: 4
+  rocketAnlgeSpeed: 180
+  rocketGravity: 0
+  rocketPower: 18
+  flappyPower: 25
+  flappyTime: 8
+  eggTime: 8
+  jaje: {fileID: 7578125820051512125, guid: 232f515b0068a474d885cda368de5898, type: 3}
+  eggPower: 25
 --- !u!1 &5781050689127235769
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,6 +478,13 @@ MonoBehaviour:
   AngleSpeed: 120
   distance: 4
   startAngle: 0
+  startDistance: 0
+  maxAngle: 170
+  minAngle: 10
+  startMaxAngle: 0
+  startMinAngle: 0
+  Angle: 0
+  startAngleSpeed: 0
 --- !u!1 &8252203621355133469
 GameObject:
   m_ObjectHideFlags: 0
