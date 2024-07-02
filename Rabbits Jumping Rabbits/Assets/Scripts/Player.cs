@@ -262,7 +262,7 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.layer == 19)
         {
-            rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y + collisionPower);
+            
 
             if (collision.gameObject.CompareTag("DBJump"))
             {

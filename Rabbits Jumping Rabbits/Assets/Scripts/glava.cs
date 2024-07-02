@@ -23,6 +23,7 @@ public class glava : MonoBehaviour
             Instantiate(blood, transform.position, Quaternion.AngleAxis(90, new Vector3(0, 0, 1)));
             Destroy(transform.parent.gameObject);
             collision.gameObject.transform.parent.gameObject.GetComponent<Player>().smashingDown = false;
+            MainMenu.numberOfPlayers--;
 
         }
         if (collision.gameObject.CompareTag("Jaje"))
@@ -30,6 +31,7 @@ public class glava : MonoBehaviour
             Instantiate(blood, transform.position, Quaternion.AngleAxis(90, new Vector3(0, 0, 1)));
             Destroy(transform.parent.gameObject);
             Destroy(collision.transform.gameObject);
+            MainMenu.numberOfPlayers--;
         }
     }
 }
