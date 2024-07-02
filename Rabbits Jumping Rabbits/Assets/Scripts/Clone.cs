@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
@@ -8,23 +9,41 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 public class Clone : MonoBehaviour
 {
     public GameObject playa;
+    public Player original;
     public Rigidbody2D rb;
-    private float jumpingPower;
+    public float jumpingPower;
     public LayerMask groundLayer;
     public Transform groundCheckLeft;
     public Transform groundCheckRight;
-    public Transform Circle;
+    public DirectionScript Circle;
     public int layerNumber;
     public KeyCode key;
-    private float tolerance;
-    private float collisionPower;
-    private float dbjumpTime;
-    private float highJumpTime;
-    private float jumpHigherPower;
-    private float enemyBouncePower;
-    private float teammateBouncePower;
-    private float highJumpPower;
-    public float life;
+    public float tolerance;
+    public float collisionPower;
+    public float dbjumpTime;
+    public float highJumpTime;
+    public float bigTime;
+    public float smallTime;
+    public float teleportTime;
+    public float jumpHigherPower;
+    public float enemyBouncePower;
+    public float teammateBouncePower;
+    public float highJumpPower;
+    public GameObject clone;
+    public float gravityUp;
+    public float gravityDown;
+    public float gravitySmashDown;
+    public Vector2 velocityBefore;
+    public bool smashingDown;
+    public float rocketDistance;
+    public float rocketAnlgeSpeed;
+    public float rocketGravity;
+    public float rocketPower;
+    public float flappyPower;
+    public float flappyTime;
+    public float eggTime;
+    public GameObject jaje;
+    public float eggPower;
 
     private int canJump;
     private int canDoubleJump;
@@ -33,10 +52,22 @@ public class Clone : MonoBehaviour
     private float jumpHigherCD;
     private float highJump;
     private float highJumpTimer;
-    private Player original;
-
+    private float bigTimer;
+    private float smallTimer;
+    private float rocketTimer;
+    private bool isRocketing;
+    private bool isFlappy;
+    private float flappyTimer;
+    private bool isEgging;
+    private float eggTimer;
+    private bool canShootEgg;
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
+        canDoubleJump = 0;
+        canJump = 1;
+        highJump = 1;
+
         original = playa.GetComponent<Player>();
         rb = GetComponent<Rigidbody2D>();
         canDoubleJump = 0;
@@ -52,10 +83,22 @@ public class Clone : MonoBehaviour
         enemyBouncePower = original.enemyBouncePower;
         teammateBouncePower = original.teammateBouncePower;
         highJumpPower = original.highJumpPower;
+        key = original.key;
+
     }
 
     void FixedUpdate()
     {
+        if (IsGrounded())
+        {
+            smashingDown = false;
+            canShootEgg = true;
+        }
+        if (isRocketing) rb.gravityScale = rocketGravity;
+        else if (rb.velocity.y > 0) rb.gravityScale = gravityUp;
+        else if (!smashingDown) rb.gravityScale = gravityDown;
+        else rb.gravityScale = gravitySmashDown;
+
         jumpHigherCD += Time.fixedDeltaTime;
 
         if (!IsGrounded()) groundedCD += Time.fixedDeltaTime;
@@ -65,7 +108,7 @@ public class Clone : MonoBehaviour
         else if (canJump == 2) canJump = 1;
         else if (canDoubleJump == 0) canJump = 0;
 
-        if (rb.velocity.y > 0) Physics2D.IgnoreLayerCollision(layerNumber, 6, true);
+        if (rb.velocity.y > 0 || isRocketing) Physics2D.IgnoreLayerCollision(layerNumber, 6, true);
         else Physics2D.IgnoreLayerCollision(layerNumber, 6, false);
 
         if (dbjumpTimer > 0) dbjumpTimer -= Time.fixedDeltaTime;
@@ -74,8 +117,41 @@ public class Clone : MonoBehaviour
         if (highJumpTimer > 0) highJumpTimer -= Time.fixedDeltaTime;
         else highJump = 1;
 
-        life -= Time.fixedDeltaTime;
-        if (life < 0) Destroy(gameObject);
+        if (rocketTimer > 0) rocketTimer -= Time.fixedDeltaTime;
+        else if (rocketTimer < 0)
+        {
+            rocketTimer = 0;
+            Circle.distance = Circle.startDistance;
+            Circle.maxAngle = Circle.startMaxAngle;
+            Circle.minAngle = Circle.startMinAngle;
+            Circle.Angle = Circle.startAngle;
+            Circle.AngleSpeed = Circle.startAngleSpeed;
+            isRocketing = false;
+        }
+
+        if (flappyTimer > 0) flappyTimer -= Time.fixedDeltaTime;
+        else
+        {
+            isFlappy = false;
+        }
+
+        if (eggTimer > 0) eggTimer -= Time.fixedDeltaTime;
+        else
+        {
+            isEgging = false;
+        }
+
+        if (bigTimer > 0 || smallTimer > 0)
+        {
+            bigTimer -= Time.fixedDeltaTime;
+            smallTimer -= Time.fixedDeltaTime;
+        }
+        else
+        {
+            transform.localScale = new Vector3(2, 2, 2);
+            Circle.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
+        velocityBefore = rb.velocity;
     }
 
     private void Update()
@@ -86,18 +162,44 @@ public class Clone : MonoBehaviour
 
     public void Jump()
     {
-        if (canJump > 0)
+        if (isRocketing)
         {
-            rb.velocity = new Vector2(jumpingPower * highJump * (Circle.position - transform.position).normalized.x, jumpingPower * (Circle.position - transform.position).normalized.y);
+            rb.velocity = (Vector2)(Circle.transform.position - transform.position).normalized * rocketPower;
+        }
+        else if (isFlappy && !IsGrounded())
+        {
+            rb.velocity = new Vector2(flappyPower * (Circle.transform.position - transform.position).normalized.x, flappyPower * (Circle.transform.position - transform.position).normalized.y);
+        }
+        else if (isEgging && !IsGrounded() && canShootEgg)
+        {
+            canShootEgg = false;
+            Instantiate(jaje, transform.position + new Vector3(0, -2, 0), transform.rotation);
+            rb.velocity = new Vector2(rb.velocity.x, eggPower);
+        }
+        else if (canJump > 0)
+        {
+            rb.velocity = new Vector2(jumpingPower * highJump * (Circle.transform.position - transform.position).normalized.x, jumpingPower * (Circle.transform.position - transform.position).normalized.y);
             jumpHigherCD = 0;
             canJump--;
+        }
+        else if (!IsGrounded())
+        {
+            smashingDown = true;
+            rb.velocity = new Vector2(rb.velocity.x * 0.5f, rb.velocity.y);
         }
     }
 
 
     public void JumpHigher()
     {
-        if (jumpHigherCD < 0.5 && !IsGrounded())
+        if (isRocketing)
+        {
+            rb.velocity = (Vector2)(Circle.transform.position - transform.position).normalized * rocketPower;
+            //rb.velocity += (Vector2)(Circle.transform.position - transform.position).normalized * teleportPower*Time.deltaTime;
+            //transform.position = Vector3.SmoothDamp(transform.position, transform.position+(Circle.transform.position - transform.position).normalized * 1.1f * Circle.distance,ref velocity, 0);
+            //transform.position += (Circle.transform.position - transform.position).normalized*1.1f * Circle.distance;
+        }
+        else if (jumpHigherCD < 0.5 && !IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y + jumpingPower * highJump * Time.deltaTime * jumpHigherPower);
         }
@@ -111,10 +213,9 @@ public class Clone : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Tim2"))
+        if (collision.gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Tim2") || collision.gameObject.CompareTag("Player"))
         {
-            print("sdfnjo");
-            if ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1"))
+            if ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1") || collision.gameObject.CompareTag("Player"))
             {
                 rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * enemyBouncePower;
             }
@@ -122,21 +223,17 @@ public class Clone : MonoBehaviour
             {
                 rb.velocity += (Vector2)(transform.position - collision.gameObject.transform.position).normalized * teammateBouncePower;
             }
-            if (transform.position.y + tolerance < collision.gameObject.transform.position.y && ((collision.gameObject.CompareTag("Tim1") && gameObject.CompareTag("Tim2")) || collision.gameObject.CompareTag("Tim2") && gameObject.CompareTag("Tim1")))
-            {
-                Destroy(gameObject);
-            }
-
+        }
+        if (collision.gameObject.CompareTag("Zid") && !isRocketing)
+        {
+            rb.velocity = new Vector2(-velocityBefore.x, velocityBefore.y + collisionPower);
+            print("sdfgjkon");
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Zid"))
-        {
-            rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y + collisionPower);
 
-        }
         if (collision.gameObject.layer == 19)
         {
             rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y + collisionPower);
@@ -155,7 +252,43 @@ public class Clone : MonoBehaviour
 
             if (collision.gameObject.CompareTag("Doubler"))
             {
-                Instantiate(gameObject, transform.position + new Vector3(5, 5, 0), transform.rotation);
+                Instantiate(clone, transform.position + new Vector3(5, 5, 0), transform.rotation);
+            }
+
+            if (collision.gameObject.CompareTag("Big"))
+            {
+                transform.localScale = new Vector3(4, 4, 4);
+                Circle.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+                bigTimer = bigTime;
+            }
+
+            if (collision.gameObject.CompareTag("Small"))
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+                Circle.transform.localScale = new Vector3(1f, 1f, 1f);
+                smallTimer = smallTime;
+            }
+
+            if (collision.gameObject.CompareTag("Rocket"))
+            {
+                isRocketing = true;
+                rocketTimer = teleportTime;
+                Circle.distance = rocketDistance;
+                Circle.maxAngle = 1000000;
+                Circle.minAngle = -40;
+                Circle.AngleSpeed = rocketAnlgeSpeed;
+            }
+
+            if (collision.gameObject.CompareTag("Flappy"))
+            {
+                isFlappy = true;
+                flappyTimer = flappyTime;
+            }
+
+            if (collision.gameObject.CompareTag("Egg"))
+            {
+                isEgging = true;
+                eggTimer = eggTime;
             }
 
             Destroy(collision.gameObject);
