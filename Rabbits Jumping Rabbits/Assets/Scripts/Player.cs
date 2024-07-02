@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
         {
             gameObject.layer = 11;
             layerNumber = 11;
+            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
     }
 
@@ -162,8 +163,16 @@ public class Player : MonoBehaviour
         }
         else
         {
-            transform.localScale = new Vector3(2, 2, 2);
-            Circle.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
+            if (jeKlon)
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
+            else
+            {
+                transform.localScale = new Vector3(2, 2, 2);
+                Circle.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            }
         }
         velocityBefore = rb.velocity;
     }
@@ -269,7 +278,7 @@ public class Player : MonoBehaviour
 
             if (collision.gameObject.CompareTag("Doubler") && !jeKlon)
             {
-                Instantiate(gameObject, transform.position + new Vector3(3, 3, 0), transform.rotation, transform);
+                Instantiate(gameObject, new Vector3(0, 20, 0), transform.rotation, transform);
             }
 
             if (collision.gameObject.CompareTag("Big"))
