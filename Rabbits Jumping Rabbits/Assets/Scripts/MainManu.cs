@@ -5,15 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MainManu : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 
     public void Play2p()
     {
@@ -32,6 +23,6 @@ public class MainManu : MonoBehaviour
 
     public void Play2v2()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 }

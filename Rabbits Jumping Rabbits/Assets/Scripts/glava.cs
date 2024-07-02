@@ -19,14 +19,21 @@ public class glava : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Noge") && player.velocityBefore.y > collision.gameObject.transform.parent.gameObject.GetComponent<Player>().velocityBefore.y)
         {
-            Destroy(transform.parent.gameObject);
-            collision.gameObject.transform.parent.gameObject.GetComponent<Player>().smashingDown = false;
-            
+            if (transform.parent.gameObject.GetComponent<Player>().teamNo == collision.gameObject.transform.parent.gameObject.GetComponent<Player>().teamNo
+				&& transform.parent.gameObject.GetComponent<Player>().teamNo != 0)
+            {
+				print("mosa");
+			}
+            else
+            {
+				Destroy(transform.parent.gameObject);
+				collision.gameObject.transform.parent.gameObject.GetComponent<Player>().smashingDown = false;
+			}
         }
         if (collision.gameObject.CompareTag("Jaje"))
         {
-            Destroy(transform.parent.gameObject);
-            Destroy(collision.transform.gameObject);
+			Destroy(transform.parent.gameObject);
+			Destroy(collision.transform.gameObject);
         }
     }
 }

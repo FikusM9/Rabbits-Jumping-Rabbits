@@ -8,6 +8,7 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class Player : MonoBehaviour
 {
+    public int teamNo;
     public Rigidbody2D rb;
     public float jumpingPower;
     public LayerMask groundLayer;
