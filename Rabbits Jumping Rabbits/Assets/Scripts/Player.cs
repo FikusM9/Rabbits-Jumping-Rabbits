@@ -9,6 +9,8 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class Player : MonoBehaviour
 {
+    public float drownSpeed;
+    public float zipSpeed;
     public int teamNo;
     public bool mozeKlonirat;
     public float lifeTime;
@@ -72,6 +74,7 @@ public class Player : MonoBehaviour
     private float gorillaTimer;
     private float stunTimer;
     private bool isStunned;
+    private float seVozi;
     void Start()
     {
         mozeKlonirat = true;
@@ -83,6 +86,7 @@ public class Player : MonoBehaviour
         canDoubleJump = 0;
         canJump = 1;
         highJump = 1;
+        seVozi = 1;
 
         if (jeKlon)
         {
@@ -178,11 +182,11 @@ public class Player : MonoBehaviour
 
             if (jeKlon)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(1 * seVozi, 1 / seVozi, 1);
             }
             else
             {
-                transform.localScale = new Vector3(2, 2, 2);
+                transform.localScale = new Vector3(2 * seVozi, 2 / seVozi, 2);
                 Circle.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             }
         }
@@ -269,7 +273,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Zid") && !isRocketing)
         {
             rb.velocity = new Vector2(-velocityBefore.x, velocityBefore.y + collisionPower);
-
         }
     }
 
@@ -278,7 +281,6 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.layer == 19)
         {
-            rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y + collisionPower);
 
             if (collision.gameObject.CompareTag("DBJump"))
             {
@@ -346,6 +348,41 @@ public class Player : MonoBehaviour
         {
             isStunned = true;
             stunTimer = gorillaStunTime;
+        }
+        if (collision.gameObject.CompareTag("Zip"))
+        {
+            seVozi = 0.6f;
+        }
+        if (collision.gameObject.CompareTag("kill"))
+        {
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Portal1"))
+        {
+            rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y);
+            transform.position = new Vector3(24, -transform.position.y - 0.5f, 0);
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Zip"))
+        {
+            rb.velocity = new Vector2(rb.velocity.x * 0.85f, zipSpeed);
+        }
+        if (collision.gameObject.CompareTag("Lava"))
+        {
+            rb.velocity = new Vector2(0, -drownSpeed);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Zip"))
+        {
+            int randSmer = Random.Range(0, 2);
+            randSmer = randSmer * 2 - 1;
+            rb.velocity = new Vector2(collisionPower * randSmer, rb.velocity.y);
+            seVozi = 1;
         }
     }
 }
