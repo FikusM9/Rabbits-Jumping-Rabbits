@@ -5,7 +5,7 @@ using UnityEngine;
 public class glava : MonoBehaviour
 {
     public Player player;
-
+    public ParticleSystem blood;
 
     void Start()
     {
