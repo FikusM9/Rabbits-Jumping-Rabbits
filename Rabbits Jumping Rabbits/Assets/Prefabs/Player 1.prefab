@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa45e7955c07074cb7e6790eebb6d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jeKlon: 0
   rb: {fileID: 5301708955893084862}
   jumpingPower: 36
   groundLayer:
@@ -231,7 +232,6 @@ MonoBehaviour:
   enemyBouncePower: 25
   teammateBouncePower: 60
   highJumpPower: 1.5
-  clone: {fileID: 4503342449401132496, guid: fd9e1ce17666f4e7cbc4f0f022fc52ff, type: 3}
   gravityUp: 12
   gravityDown: 15
   gravitySmashDown: 80

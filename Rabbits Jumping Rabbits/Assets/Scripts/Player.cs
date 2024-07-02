@@ -8,6 +8,7 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class Player : MonoBehaviour
 {
+    public bool jeKlon;
     public Rigidbody2D rb;
     public float jumpingPower;
     public LayerMask groundLayer;
@@ -27,7 +28,6 @@ public class Player : MonoBehaviour
     public float enemyBouncePower;
     public float teammateBouncePower;
     public float highJumpPower;
-    public GameObject clone;
     public float gravityUp;
     public float gravityDown;
     public float gravitySmashDown;
@@ -69,10 +69,19 @@ public class Player : MonoBehaviour
     private bool isStunned;
     void Start()
     {
+        if (transform.parent != null)
+            jeKlon = true;
+
         rb = GetComponent<Rigidbody2D>();
         canDoubleJump = 0;
         canJump = 1;
         highJump = 1;
+
+        if (jeKlon)
+        {
+            gameObject.layer = 11;
+            layerNumber = 11;
+        }
     }
 
     void FixedUpdate()
@@ -116,14 +125,14 @@ public class Player : MonoBehaviour
         if (highJumpTimer > 0) highJumpTimer -= Time.fixedDeltaTime;
         else highJump = 1;
 
-        if(rocketTimer > 0) rocketTimer -= Time.fixedDeltaTime;
-        else if(rocketTimer < 0)
+        if (rocketTimer > 0) rocketTimer -= Time.fixedDeltaTime;
+        else if (rocketTimer < 0)
         {
             rocketTimer = 0;
             Circle.distance = Circle.startDistance;
             Circle.maxAngle = Circle.startMaxAngle;
             Circle.minAngle = Circle.startMinAngle;
-            Circle.Angle= Circle.startAngle;
+            Circle.Angle = Circle.startAngle;
             Circle.AngleSpeed = Circle.startAngleSpeed;
             isRocketing = false;
         }
@@ -134,13 +143,13 @@ public class Player : MonoBehaviour
             isFlappy = false;
         }
 
-        if(eggTimer>0) eggTimer -= Time.fixedDeltaTime;
+        if (eggTimer > 0) eggTimer -= Time.fixedDeltaTime;
         else
         {
             isEgging = false;
         }
 
-        if(gorillaTimer>0) gorillaTimer -= Time.fixedDeltaTime;
+        if (gorillaTimer > 0) gorillaTimer -= Time.fixedDeltaTime;
         else
         {
             isGorilla = false;
@@ -178,7 +187,7 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector2(flappyPower * (Circle.transform.position - transform.position).normalized.x, flappyPower * (Circle.transform.position - transform.position).normalized.y);
         }
-        else if(isEgging && !IsGrounded() && canShootEgg)
+        else if (isEgging && !IsGrounded() && canShootEgg)
         {
             canShootEgg = false;
             Instantiate(jaje, transform.position + new Vector3(0, -2, 0), transform.rotation);
@@ -193,7 +202,7 @@ public class Player : MonoBehaviour
         else if (!IsGrounded())
         {
             smashingDown = true;
-            rb.velocity= new Vector2(rb.velocity.x*0.5f, 0);
+            rb.velocity = new Vector2(rb.velocity.x * 0.5f, 0);
         }
     }
 
@@ -235,13 +244,13 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Zid") && !isRocketing)
         {
             rb.velocity = new Vector2(-velocityBefore.x, velocityBefore.y + collisionPower);
-            
+
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-       
+
         if (collision.gameObject.layer == 19)
         {
             rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y + collisionPower);
@@ -258,15 +267,15 @@ public class Player : MonoBehaviour
                 highJumpTimer = highJumpTime;
             }
 
-            if (collision.gameObject.CompareTag("Doubler"))
+            if (collision.gameObject.CompareTag("Doubler") && !jeKlon)
             {
-                Instantiate(clone, transform.position + new Vector3(5, 5, 0), transform.rotation);
+                Instantiate(gameObject, transform.position + new Vector3(3, 3, 0), transform.rotation, transform);
             }
 
             if (collision.gameObject.CompareTag("Big"))
             {
-                transform.localScale =new Vector3(4,4,4);
-                Circle.transform.localScale = new Vector3(0.25f,0.25f,0.25f);
+                transform.localScale = new Vector3(4, 4, 4);
+                Circle.transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
                 bigTimer = bigTime;
             }
 
@@ -295,7 +304,7 @@ public class Player : MonoBehaviour
 
             if (collision.gameObject.CompareTag("Egg"))
             {
-                isEgging=true;
+                isEgging = true;
                 eggTimer = eggTime;
             }
 

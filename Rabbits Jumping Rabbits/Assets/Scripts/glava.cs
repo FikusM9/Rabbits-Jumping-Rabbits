@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class glava : MonoBehaviour
 {
-    public ParticleSystem blood;
     public Player player;
+
+
     void Start()
     {
-        
+
     }
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,7 +23,7 @@ public class glava : MonoBehaviour
             Instantiate(blood, transform.position, Quaternion.AngleAxis(90, new Vector3(0, 0, 1)));
             Destroy(transform.parent.gameObject);
             collision.gameObject.transform.parent.gameObject.GetComponent<Player>().smashingDown = false;
-            
+
         }
         if (collision.gameObject.CompareTag("Jaje"))
         {
