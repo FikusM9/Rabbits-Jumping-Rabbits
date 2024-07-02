@@ -21,5 +21,11 @@ public class noge : MonoBehaviour
         {
             player.rb.velocity = new Vector2(player.rb.velocity.x, player.enemyBouncePower);
         }
+        if (collision.gameObject.layer == 6 && player.isGorilla && player.velocityBefore.y<=0.05f && player.smashingDown)
+        {
+            Instantiate(player.gorillaSmash, transform.position + new Vector3(0, 0, 0), transform.rotation);
+            print("akdpmf");
+        }
     }
+
 }

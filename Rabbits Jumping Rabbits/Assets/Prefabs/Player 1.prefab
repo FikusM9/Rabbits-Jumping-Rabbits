@@ -233,11 +233,11 @@ MonoBehaviour:
   clone: {fileID: 4503342449401132496, guid: fd9e1ce17666f4e7cbc4f0f022fc52ff, type: 3}
   gravityUp: 12
   gravityDown: 15
-  gravitySmashDown: 40
+  gravitySmashDown: 80
   velocityBefore: {x: 0, y: 0}
   smashingDown: 0
   rocketDistance: 4
-  rocketAnlgeSpeed: 180
+  rocketAnlgeSpeed: 240
   rocketGravity: 0
   rocketPower: 18
   flappyPower: 25
@@ -245,6 +245,10 @@ MonoBehaviour:
   eggTime: 8
   jaje: {fileID: 7578125820051512125, guid: 232f515b0068a474d885cda368de5898, type: 3}
   eggPower: 25
+  gorillaTime: 80
+  gorillaSmash: {fileID: 5558217671827993288, guid: 16828a6c6c69e214ca6350f25f075599, type: 3}
+  isGorilla: 0
+  gorillaStunTime: 1
 --- !u!1 &5781050689127235769
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Transform: {fileID: 6960820144419607355}
   PlayerTransform: {fileID: 2856761440601312276}
-  AngleSpeed: 120
+  AngleSpeed: 160
   distance: 4
   startAngle: 0
   startDistance: 0
@@ -562,14 +566,16 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.28125656, y: -0.6131144}
-      - {x: 0.2861575, y: -0.5806003}
-      - {x: -0.7198276, y: -0.62445045}
-      - {x: -0.7101702, y: -0.6349865}
+    - - {x: 0.2868353, y: -0.6856399}
+      - {x: 0.24710524, y: -0.6977566}
+      - {x: -0.45135283, y: -0.6910954}
+      - {x: -0.64730215, y: -0.69697595}
+      - {x: -0.6655392, y: -0.72424877}
       - {x: -0.5614779, y: -0.9249993}
       - {x: 1.1307982, y: -0.9345632}
-      - {x: 1.2743516, y: -0.61828285}
-      - {x: 0.28710985, y: -0.5856647}
+      - {x: 1.2297206, y: -0.6963871}
+      - {x: 0.88718414, y: -0.6932769}
+      - {x: 0.34289885, y: -0.69166356}
   m_UseDelaunayMesh: 0
 --- !u!114 &6789423355530298883
 MonoBehaviour:

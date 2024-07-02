@@ -42,6 +42,10 @@ public class Player : MonoBehaviour
     public float eggTime;
     public GameObject jaje;
     public float eggPower;
+    public float gorillaTime;
+    public GameObject gorillaSmash;
+    public bool isGorilla;
+    public float gorillaStunTime;
 
     private int canJump;
     private int canDoubleJump;
@@ -59,6 +63,9 @@ public class Player : MonoBehaviour
     private bool isEgging;
     private float eggTimer;
     private bool canShootEgg;
+    private float gorillaTimer;
+    private float stunTimer;
+    private bool isStunned;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -69,6 +76,12 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        if (stunTimer > 0) stunTimer -= Time.fixedDeltaTime;
+        else
+        {
+            isStunned = false;
+        }
         if (IsGrounded())
         {
             smashingDown = false;
@@ -121,6 +134,12 @@ public class Player : MonoBehaviour
             isEgging = false;
         }
 
+        if(gorillaTimer>0) gorillaTimer -= Time.fixedDeltaTime;
+        else
+        {
+            isGorilla = false;
+        }
+
         if (bigTimer > 0 || smallTimer > 0)
         {
             bigTimer -= Time.fixedDeltaTime;
@@ -136,8 +155,11 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(key)) Jump();
-        if (Input.GetKey(key)) JumpHigher();
+        if (!isStunned)
+        {
+            if (Input.GetKeyDown(key)) Jump();
+            if (Input.GetKey(key)) JumpHigher();
+        }
     }
 
     public void Jump()
@@ -165,7 +187,7 @@ public class Player : MonoBehaviour
         else if (!IsGrounded())
         {
             smashingDown = true;
-            rb.velocity= new Vector2(rb.velocity.x*0.5f, rb.velocity.y);
+            rb.velocity= new Vector2(rb.velocity.x*0.5f, 0);
         }
     }
 
@@ -207,7 +229,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Zid") && !isRocketing)
         {
             rb.velocity = new Vector2(-velocityBefore.x, velocityBefore.y + collisionPower);
-            print("sdfgjkon");
+            
         }
     }
 
@@ -271,7 +293,18 @@ public class Player : MonoBehaviour
                 eggTimer = eggTime;
             }
 
+            if (collision.gameObject.CompareTag("Gorilla"))
+            {
+                isGorilla = true;
+                gorillaTimer = gorillaTime;
+            }
+
             Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("GorillaSmash") && !isGorilla)
+        {
+            isStunned = true;
+            stunTimer = gorillaStunTime;
         }
     }
 }

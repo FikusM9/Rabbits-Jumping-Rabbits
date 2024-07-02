@@ -19,6 +19,8 @@ TagManager:
   - Teleport
   - Egg
   - Jaje
+  - Gorilla
+  - GorillaSmash
   layers:
   - Default
   - TransparentFX
