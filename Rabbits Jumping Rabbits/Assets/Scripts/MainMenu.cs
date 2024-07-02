@@ -12,11 +12,6 @@ public class MainMenu : MonoBehaviour
         
     }
 
-    void Update()
-    {
-        
-    }
-
     public void Play2p()
     {
         SceneManager.LoadScene(1);
@@ -37,7 +32,7 @@ public class MainMenu : MonoBehaviour
 
     public void Play2v2()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 
     public void ReturnToMenu()

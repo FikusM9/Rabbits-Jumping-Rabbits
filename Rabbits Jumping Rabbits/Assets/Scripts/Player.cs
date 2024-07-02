@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class Player : MonoBehaviour
 {
+    public int teamNo;
+    public bool mozeKlonirat;
+    public float lifeTime;
     public bool jeKlon;
     public Rigidbody2D rb;
     public float jumpingPower;
@@ -51,6 +55,7 @@ public class Player : MonoBehaviour
     private int canJump;
     private int canDoubleJump;
     private float dbjumpTimer;
+    private float lifeTimer;
     private float groundedCD;
     private float jumpHigherCD;
     private float highJump;
@@ -69,6 +74,8 @@ public class Player : MonoBehaviour
     private bool isStunned;
     void Start()
     {
+        mozeKlonirat = true;
+
         if (transform.parent != null)
             jeKlon = true;
 
@@ -79,14 +86,17 @@ public class Player : MonoBehaviour
 
         if (jeKlon)
         {
-            gameObject.layer = 11;
-            layerNumber = 11;
+            gameObject.layer = transform.parent.gameObject.layer + 4;
+            layerNumber = transform.parent.gameObject.GetComponent<Player>().layerNumber + 4;
             transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            Color boja = gameObject.GetComponent<SpriteRenderer>().material.color;
+            gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color", new Color(boja.r, boja.g, boja.b, 5));
         }
     }
 
     void FixedUpdate()
     {
+        mozeKlonirat = true;
 
         if (stunTimer > 0)
         {
@@ -125,6 +135,8 @@ public class Player : MonoBehaviour
 
         if (highJumpTimer > 0) highJumpTimer -= Time.fixedDeltaTime;
         else highJump = 1;
+
+        lifeTimer = lifeTime;
 
         if (rocketTimer > 0) rocketTimer -= Time.fixedDeltaTime;
         else if (rocketTimer < 0)
@@ -174,6 +186,10 @@ public class Player : MonoBehaviour
                 Circle.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             }
         }
+        if (jeKlon) lifeTimer -= Time.fixedDeltaTime;
+        if (lifeTimer < 0) Destroy(gameObject);
+
+
         velocityBefore = rb.velocity;
     }
 
@@ -276,8 +292,9 @@ public class Player : MonoBehaviour
                 highJumpTimer = highJumpTime;
             }
 
-            if (collision.gameObject.CompareTag("Doubler") && !jeKlon)
+            if (collision.gameObject.CompareTag("Doubler") && !jeKlon && mozeKlonirat)
             {
+                mozeKlonirat = false;
                 Instantiate(gameObject, new Vector3(0, 20, 0), transform.rotation, transform);
             }
 
