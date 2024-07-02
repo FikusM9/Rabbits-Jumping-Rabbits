@@ -6,9 +6,11 @@ public class NewBehaviourScript : MonoBehaviour
 {
 
     public GameObject DeathScreen;
+    public int numberOfPlayers;
     void Start()
     {
-        DeathScreen.SetActive(false);
+        MainMenu.numberOfPlayers = numberOfPlayers;
+        MainMenu.lastDied = -1;
     }
 
     void Update()

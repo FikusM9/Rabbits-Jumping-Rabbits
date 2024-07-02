@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
 {
 
     public static int numberOfPlayers;
+    public static int lastDied;
     void Start()
     {
         

@@ -210,6 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa45e7955c07074cb7e6790eebb6d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teamNo: 0
   mozeKlonirat: 0
   lifeTime: 10
   jeKlon: 0
@@ -248,7 +249,7 @@ MonoBehaviour:
   eggTime: 8
   jaje: {fileID: 7578125820051512125, guid: 232f515b0068a474d885cda368de5898, type: 3}
   eggPower: 25
-  gorillaTime: 80
+  gorillaTime: 8
   gorillaSmash: {fileID: 5558217671827993288, guid: 16828a6c6c69e214ca6350f25f075599, type: 3}
   isGorilla: 0
   gorillaStunTime: 1

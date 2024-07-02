@@ -496,7 +496,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'BACK TO MENU
+  m_text: 'RETURN TO MENU
 
 '
   m_isRightToLeft: 0
@@ -952,12 +952,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217161059}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.58033174, y: -1.1944668, z: 0.054304957}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1810019643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &257985670
 GameObject:
@@ -2366,7 +2366,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1996068600}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1810019643}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2455,7 +2455,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1179112424}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1996068603}
+        m_TargetAssemblyTypeName: DeathScreen, Assembly-CSharp
+        m_MethodName: PlayAgain
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1179112424
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3276,7 +3288,9 @@ Transform:
   m_LocalPosition: {x: 0.58033174, y: 1.1944668, z: -0.054304957}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1177470835}
+  - {fileID: 217161062}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1810019644
@@ -3291,7 +3305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8757f9f6a6943047bb97db47e5fba0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DeathScreen: {fileID: 1177470831}
+  DeathScreen: {fileID: 1996068599}
+  numberOfPlayers: 4
 --- !u!1 &1986160633
 GameObject:
   m_ObjectHideFlags: 0
@@ -3590,7 +3605,7 @@ GameObject:
   - component: {fileID: 1996027587}
   - component: {fileID: 1996027586}
   m_Layer: 5
-  m_Name: BackToMenuButton
+  m_Name: ReturnToMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3659,7 +3674,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1996027587}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1996068603}
+        m_TargetAssemblyTypeName: DeathScreen, Assembly-CSharp
+        m_MethodName: ReturnToMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1996027587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3709,13 +3736,14 @@ GameObject:
   - component: {fileID: 1996068600}
   - component: {fileID: 1996068602}
   - component: {fileID: 1996068601}
+  - component: {fileID: 1996068603}
   m_Layer: 5
   m_Name: DeathSCreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1996068600
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3775,6 +3803,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1996068599}
   m_CullTransparentMesh: 1
+--- !u!114 &1996068603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996068599}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3937a721ed081242b9fb9e9c0894e2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2040274499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9098924800266596972, guid: 62508406aaf5b4b7bba15151e118767a, type: 3}
@@ -4060,6 +4100,4 @@ SceneRoots:
   - {fileID: 1110324824}
   - {fileID: 992986926}
   - {fileID: 1191587871}
-  - {fileID: 1177470835}
-  - {fileID: 217161062}
   - {fileID: 1810019643}
