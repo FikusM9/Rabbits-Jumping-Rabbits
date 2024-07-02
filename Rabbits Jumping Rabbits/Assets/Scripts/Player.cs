@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
     public GameObject gorillaSmash;
     public bool isGorilla;
     public float gorillaStunTime;
+    public SpriteRenderer Stun;
 
     private int canJump;
     private int canDoubleJump;
@@ -77,10 +78,15 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (stunTimer > 0) stunTimer -= Time.fixedDeltaTime;
+        if (stunTimer > 0)
+        {
+            stunTimer -= Time.fixedDeltaTime;
+            Stun.enabled = true;
+        }
         else
         {
             isStunned = false;
+            Stun.enabled = false;
         }
         if (IsGrounded())
         {
@@ -122,7 +128,7 @@ public class Player : MonoBehaviour
             isRocketing = false;
         }
 
-        if(flappyTimer>0) flappyTimer -= Time.fixedDeltaTime;
+        if (flappyTimer > 0) flappyTimer -= Time.fixedDeltaTime;
         else
         {
             isFlappy = false;
