@@ -251,7 +251,7 @@ MonoBehaviour:
   eggTime: 8
   jaje: {fileID: 7578125820051512125, guid: 232f515b0068a474d885cda368de5898, type: 3}
   eggPower: 25
-  gorillaTime: 80
+  gorillaTime: 8
   gorillaSmash: {fileID: 5558217671827993288, guid: 16828a6c6c69e214ca6350f25f075599, type: 3}
   isGorilla: 0
   gorillaStunTime: 1
