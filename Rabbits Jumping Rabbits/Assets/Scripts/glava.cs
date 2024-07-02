@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class glava : MonoBehaviour
 {
-
     public Player player;
+    public ParticleSystem blood;
+
     void Start()
     {
-        
+
     }
     void Update()
     {
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
