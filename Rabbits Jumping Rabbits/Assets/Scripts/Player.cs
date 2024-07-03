@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Unity.VisualScripting;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Animations;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class Player : MonoBehaviour
 {
+    public float drownSpeed;
+    public float zipSpeed;
     public int teamNo;
     public bool mozeKlonirat;
     public float lifeTime;
@@ -53,6 +56,7 @@ public class Player : MonoBehaviour
     public SpriteRenderer Stun;
 
     private int canJump;
+    private float canPort;
     private int canDoubleJump;
     private float dbjumpTimer;
     private float lifeTimer;
@@ -72,6 +76,7 @@ public class Player : MonoBehaviour
     private float gorillaTimer;
     private float stunTimer;
     private bool isStunned;
+    private float seVozi;
     void Start()
     {
         mozeKlonirat = true;
@@ -83,6 +88,8 @@ public class Player : MonoBehaviour
         canDoubleJump = 0;
         canJump = 1;
         highJump = 1;
+        seVozi = 1;
+        canPort = 1;
 
         if (jeKlon)
         {
@@ -178,16 +185,18 @@ public class Player : MonoBehaviour
 
             if (jeKlon)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(1 * seVozi, 1 / seVozi, 1);
             }
             else
             {
-                transform.localScale = new Vector3(2, 2, 2);
+                transform.localScale = new Vector3(2 * seVozi, 2 / seVozi, 2);
                 Circle.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             }
         }
         if (jeKlon) lifeTimer -= Time.fixedDeltaTime;
         if (lifeTimer < 0) Destroy(gameObject);
+
+        if (canPort <= 1) canPort += Time.fixedDeltaTime;
 
 
         velocityBefore = rb.velocity;
@@ -269,7 +278,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Zid") && !isRocketing)
         {
             rb.velocity = new Vector2(-velocityBefore.x, velocityBefore.y + collisionPower);
-
         }
     }
 
@@ -278,7 +286,6 @@ public class Player : MonoBehaviour
 
         if (collision.gameObject.layer == 19)
         {
-            
 
             if (collision.gameObject.CompareTag("DBJump"))
             {
@@ -346,6 +353,51 @@ public class Player : MonoBehaviour
         {
             isStunned = true;
             stunTimer = gorillaStunTime;
+        }
+        if (collision.gameObject.CompareTag("Zip"))
+        {
+            seVozi = 0.6f;
+        }
+        if (collision.gameObject.CompareTag("kill"))
+        {
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.CompareTag("Portal1") && canPort >= 0.5f)
+        {
+            canPort = 0;
+            transform.position = new Vector3(22.5f, 9.5f, 0);
+        }
+        if (collision.gameObject.CompareTag("Portal2") && canPort >= 0.5f)
+        {
+            canPort = 0;
+            transform.position = new Vector3(-22.5f, -9.5f, 0);
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Zip"))
+        {
+            rb.velocity = new Vector2(rb.velocity.x * 0.85f, zipSpeed);
+        }
+        if (collision.gameObject.CompareTag("Lava"))
+        {
+            rb.velocity = new Vector2(0, -drownSpeed);
+        }
+        if (collision.gameObject.CompareTag("JumpT"))
+        {
+            smashingDown = false;
+            rb.velocity = new Vector2(jumpingPower * highJump * (Circle.transform.position - transform.position).normalized.x, jumpingPower * (Circle.transform.position - transform.position).normalized.y);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Zip"))
+        {
+            int randSmer = Random.Range(0, 2);
+            randSmer = randSmer * 2 - 1;
+            rb.velocity = new Vector2(collisionPower * randSmer, rb.velocity.y);
+            seVozi = 1;
         }
     }
 }

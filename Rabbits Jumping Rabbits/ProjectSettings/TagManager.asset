@@ -21,6 +21,12 @@ TagManager:
   - Jaje
   - Gorilla
   - GorillaSmash
+  - Zip
+  - Lava
+  - kill
+  - Portal1
+  - Portal2
+  - JumpT
   layers:
   - Default
   - TransparentFX
@@ -33,7 +39,7 @@ TagManager:
   - Player2
   - Player3
   - Player4
-  - 
+  - klon
   - 
   - 
   - 
