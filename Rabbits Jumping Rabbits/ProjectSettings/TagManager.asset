@@ -26,6 +26,7 @@ TagManager:
   - kill
   - Portal1
   - Portal2
+  - JumpT
   layers:
   - Default
   - TransparentFX

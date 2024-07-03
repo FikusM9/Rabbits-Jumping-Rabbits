@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using Unity.VisualScripting;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Animations;
 using static UnityEditor.Timeline.TimelinePlaybackControls;
@@ -55,6 +56,7 @@ public class Player : MonoBehaviour
     public SpriteRenderer Stun;
 
     private int canJump;
+    private float canPort;
     private int canDoubleJump;
     private float dbjumpTimer;
     private float lifeTimer;
@@ -87,6 +89,7 @@ public class Player : MonoBehaviour
         canJump = 1;
         highJump = 1;
         seVozi = 1;
+        canPort = 1;
 
         if (jeKlon)
         {
@@ -192,6 +195,8 @@ public class Player : MonoBehaviour
         }
         if (jeKlon) lifeTimer -= Time.fixedDeltaTime;
         if (lifeTimer < 0) Destroy(gameObject);
+
+        if (canPort <= 1) canPort += Time.fixedDeltaTime;
 
 
         velocityBefore = rb.velocity;
@@ -357,10 +362,15 @@ public class Player : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        if (collision.gameObject.CompareTag("Portal1"))
+        if (collision.gameObject.CompareTag("Portal1") && canPort >= 0.5f)
         {
-            rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y);
-            transform.position = new Vector3(24, -transform.position.y - 0.5f, 0);
+            canPort = 0;
+            transform.position = new Vector3(22.5f, 9.5f, 0);
+        }
+        if (collision.gameObject.CompareTag("Portal2") && canPort >= 0.5f)
+        {
+            canPort = 0;
+            transform.position = new Vector3(-22.5f, -9.5f, 0);
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
@@ -372,6 +382,11 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Lava"))
         {
             rb.velocity = new Vector2(0, -drownSpeed);
+        }
+        if (collision.gameObject.CompareTag("JumpT"))
+        {
+            smashingDown = false;
+            rb.velocity = new Vector2(jumpingPower * highJump * (Circle.transform.position - transform.position).normalized.x, jumpingPower * (Circle.transform.position - transform.position).normalized.y);
         }
     }
 
