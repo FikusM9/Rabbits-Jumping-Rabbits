@@ -5,12 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
 
-    void Update()
+    public static int numberOfPlayers;
+    public static int lastDied;
+    void Start()
     {
         
     }
@@ -18,20 +16,30 @@ public class MainMenu : MonoBehaviour
     public void Play2p()
     {
         SceneManager.LoadScene(1);
+        numberOfPlayers = 2;
     }
 
     public void Play3p()
     {
         SceneManager.LoadScene(2);
+        numberOfPlayers = 3;
     }
 
     public void Play4p()
     {
         SceneManager.LoadScene(3);
+        numberOfPlayers = 4;
     }
 
     public void Play2v2()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
+
+    public void ReturnToMenu()
+    {
+
+    }
+
+
 }
