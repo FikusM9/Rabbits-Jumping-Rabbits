@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6124425665638777506}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: GoundCheckLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,8 +44,8 @@ GameObject:
   - component: {fileID: 5301708955893084862}
   - component: {fileID: 5143571285255461909}
   - component: {fileID: 6119822505005589573}
-  m_Layer: 7
-  m_Name: Player 1
+  m_Layer: 10
+  m_Name: roze_zec
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,8 +115,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 528b7e0b93b461c499f2ab2e917b99c1, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.9525311, a: 1}
+  m_Sprite: {fileID: 21300000, guid: b780dd0e925915844861d7becaf3ab1d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -189,7 +189,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.9688889, y: 0.94222224}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa45e7955c07074cb7e6790eebb6d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamNo: 0
+  teamNo: 4
   mozeKlonirat: 0
   lifeTime: 10
   jeKlon: 0
@@ -222,8 +222,8 @@ MonoBehaviour:
   groundCheckLeft: {fileID: 6124425665638777506}
   groundCheckRight: {fileID: 4983024313083962459}
   Circle: {fileID: 6597925548855640150}
-  layerNumber: 0
-  key: 0
+  layerNumber: 10
+  key: 106
   tolerance: 1.7
   collisionPower: 25
   dbjumpTime: 8
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 5271198602113564061}
   - component: {fileID: 5467439838465203487}
   - component: {fileID: 2829239747602255251}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Glava
   m_TagString: Glava
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5461158264572089842}
   - component: {fileID: 8988352450447700240}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Stun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +448,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4983024313083962459}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: GoundCheckRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 6960820144419607355}
   - component: {fileID: 1243230914177136746}
   - component: {fileID: 6597925548855640150}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,7 +545,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.15686275}
+  m_Color: {r: 0.70980394, g: 0.2627451, b: 0.854902, a: 0.39215687}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -571,7 +571,7 @@ MonoBehaviour:
   PlayerTransform: {fileID: 2856761440601312276}
   AngleSpeed: 160
   distance: 4
-  startAngle: 0
+  startAngle: 60
   startDistance: 0
   maxAngle: 170
   minAngle: 10
@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 911530740204229959}
   - component: {fileID: 6823957697790712603}
   - component: {fileID: 6789423355530298883}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Noge
   m_TagString: Noge
   m_Icon: {fileID: 0}
@@ -690,15 +690,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 381678468025327635, guid: 6834fc575c529584db8564dcc226db02, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4633239007415847529, guid: 6834fc575c529584db8564dcc226db02, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4633239007415847529, guid: 6834fc575c529584db8564dcc226db02, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 38ad7111d02c16a46822af7e6ebedf3d, type: 2}
     - target: {fileID: 6454338359442371839, guid: 6834fc575c529584db8564dcc226db02, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 6119822505005589573}
     - target: {fileID: 6817207538092793654, guid: 6834fc575c529584db8564dcc226db02, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7796552824510242439, guid: 6834fc575c529584db8564dcc226db02, type: 3}
       propertyPath: m_Name
@@ -706,7 +714,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7796552824510242439, guid: 6834fc575c529584db8564dcc226db02, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8015819161051560026, guid: 6834fc575c529584db8564dcc226db02, type: 3}
       propertyPath: m_LocalPosition.x
@@ -772,11 +780,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1466381193227673444, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2919965053595533086, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4482032531947250936, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
       propertyPath: m_LocalPosition.x
@@ -818,13 +826,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8312233769263207120, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8312233769263207120, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 38ad7111d02c16a46822af7e6ebedf3d, type: 2}
     - target: {fileID: 8593122632075812295, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 6119822505005589573}
     - target: {fileID: 8682543364221837340, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
