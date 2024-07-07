@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 5301708955893084862}
   - component: {fileID: 5143571285255461909}
   - component: {fileID: 6119822505005589573}
+  - component: {fileID: 6373470879088618412}
   m_Layer: 10
   m_Name: roze_zec
   m_TagString: Player
@@ -115,7 +116,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b780dd0e925915844861d7becaf3ab1d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 221e6bf521a7cea4dab4837d549374a9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -210,6 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fa45e7955c07074cb7e6790eebb6d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drownSpeed: 0
+  zipSpeed: 0
   teamNo: 4
   mozeKlonirat: 0
   lifeTime: 10
@@ -254,6 +257,38 @@ MonoBehaviour:
   isGorilla: 0
   gorillaStunTime: 1
   Stun: {fileID: 8988352450447700240}
+  zecSprite: {fileID: 21300000, guid: 221e6bf521a7cea4dab4837d549374a9, type: 3}
+  klonSprite: {fileID: 21300000, guid: a2c7d3fdbe3cbd447aaea6225ad86877, type: 3}
+  sr: {fileID: 4438863343111943079}
+  gorillaSprite: {fileID: 21300000, guid: 1d5240c1f90472046966d02a27174ee1, type: 3}
+  gorillaAngrySprite: {fileID: 21300000, guid: ef15a97ac9a670240bf6aec9a55ec7a7, type: 3}
+  levoUvo: {fileID: 9044233608407249489}
+  desnoUvo: {fileID: 7905295358234131435}
+  dust: {fileID: 2092251502709203536, guid: 5ba60c808141f974e89242995e92b5b8, type: 3}
+  dustGorilla: {fileID: 2092251502709203536, guid: c2169b56574df3c47beff3f97ccfadaa, type: 3}
+  blood: {fileID: 7891200847135524218, guid: b6763cb3879e3794385bcc5318a3fef2, type: 3}
+  animator: {fileID: 6373470879088618412}
+--- !u!95 &6373470879088618412
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4503342449401132496}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 97582e19d4e26bd449ab69602f820040, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5781050689127235769
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,6 +796,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6834fc575c529584db8564dcc226db02, type: 3}
+--- !u!1 &9044233608407249489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7796552824510242439, guid: 6834fc575c529584db8564dcc226db02, type: 3}
+  m_PrefabInstance: {fileID: 1274934241477733590}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9118822768823784588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8015819161051560026, guid: 6834fc575c529584db8564dcc226db02, type: 3}
@@ -850,5 +890,10 @@ PrefabInstance:
 --- !u!4 &5178999954131452023 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4482032531947250936, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
+  m_PrefabInstance: {fileID: 8785645271723861135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7905295358234131435 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1466381193227673444, guid: f817f2f692beddc4e9b19fae24e97803, type: 3}
   m_PrefabInstance: {fileID: 8785645271723861135}
   m_PrefabAsset: {fileID: 0}

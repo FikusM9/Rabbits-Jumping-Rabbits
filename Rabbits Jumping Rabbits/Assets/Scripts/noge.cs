@@ -24,6 +24,7 @@ public class noge : MonoBehaviour
         if (collision.gameObject.layer == 6 && player.isGorilla && player.velocityBefore.y<=0.05f && player.smashingDown)
         {
             Instantiate(player.gorillaSmash, transform.position + new Vector3(0, 0, 0), transform.rotation);
+            Instantiate(player.dustGorilla, transform.position + new Vector3(0, -1.5f, 0), player.dustGorilla.transform.rotation);
         }
     }
 

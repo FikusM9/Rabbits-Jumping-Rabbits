@@ -27,26 +27,15 @@ public class glava : MonoBehaviour
 			}
             else
             {
-                if(MainMenu.lastDied == transform.parent.gameObject.GetComponent<Player>().teamNo)
-                {
-                    MainMenu.numberOfPlayers = 1;
-                }
-                else
-                {
-                    MainMenu.lastDied = transform.parent.gameObject.GetComponent<Player>().teamNo;
-                    MainMenu.numberOfPlayers--;
-                }
-                Destroy(transform.parent.gameObject);
+                transform.parent.gameObject.GetComponent<Player>().Umri();
 				collision.gameObject.transform.parent.gameObject.GetComponent<Player>().smashingDown = false;
             }
 
         }
         if (collision.gameObject.CompareTag("Jaje"))
         {
-            Instantiate(blood, transform.position, Quaternion.AngleAxis(90, new Vector3(0, 0, 1)));
-            Destroy(transform.parent.gameObject);
+            transform.parent.gameObject.GetComponent<Player>().Umri();
             Destroy(collision.transform.gameObject);
-            MainMenu.numberOfPlayers--;
         }
     }
 }

@@ -54,6 +54,16 @@ public class Player : MonoBehaviour
     public bool isGorilla;
     public float gorillaStunTime;
     public SpriteRenderer Stun;
+    public Sprite zecSprite;
+    public Sprite klonSprite;
+    public SpriteRenderer sr;
+    public Sprite gorillaSprite;
+    public Sprite gorillaAngrySprite;
+    public GameObject levoUvo;
+    public GameObject desnoUvo;
+    public GameObject dust;
+    public GameObject dustGorilla;
+    public ParticleSystem blood;
 
     private int canJump;
     private float canPort;
@@ -85,6 +95,8 @@ public class Player : MonoBehaviour
             jeKlon = true;
 
         rb = GetComponent<Rigidbody2D>();
+        sr=GetComponent<SpriteRenderer>();
+        sr.sprite = zecSprite;
         canDoubleJump = 0;
         canJump = 1;
         highJump = 1;
@@ -96,15 +108,28 @@ public class Player : MonoBehaviour
             gameObject.layer = transform.parent.gameObject.layer + 4;
             layerNumber = transform.parent.gameObject.GetComponent<Player>().layerNumber + 4;
             transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-            Color boja = gameObject.GetComponent<SpriteRenderer>().material.color;
-            gameObject.GetComponent<SpriteRenderer>().material.SetColor("_Color", new Color(boja.r, boja.g, boja.b, 5));
+            sr.sprite = klonSprite;
         }
     }
 
     void FixedUpdate()
     {
+        if(IsGrounded() && smashingDown)
+        {
+            Instantiate(dust, transform.position+new Vector3(0,-1.5f,0), dust.transform.rotation);
+        }
+        if (isGorilla)
+        {
+            if (!IsGrounded())
+            {
+                sr.sprite = gorillaAngrySprite;
+            }
+            else
+            {
+                sr.sprite = gorillaSprite;
+            }
+        }
         mozeKlonirat = true;
-
         if (stunTimer > 0)
         {
             stunTimer -= Time.fixedDeltaTime;
@@ -173,6 +198,16 @@ public class Player : MonoBehaviour
         else
         {
             isGorilla = false;
+            levoUvo.GetComponent<LineRenderer>().enabled = true;
+            desnoUvo.GetComponent<LineRenderer>().enabled = true;
+            if (jeKlon)
+            {
+                sr.sprite = klonSprite;
+            }
+            else
+            {
+                sr.sprite = zecSprite;
+            }
         }
 
         if (bigTimer > 0 || smallTimer > 0)
@@ -232,6 +267,7 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(jumpingPower * highJump * (Circle.transform.position - transform.position).normalized.x, jumpingPower * (Circle.transform.position - transform.position).normalized.y);
             jumpHigherCD = 0;
             canJump--;
+            
         }
         else if (!IsGrounded())
         {
@@ -284,7 +320,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.layer == 19)
+        if (collision.gameObject.layer == 19 && !jeKlon)
         {
 
             if (collision.gameObject.CompareTag("DBJump"))
@@ -345,13 +381,16 @@ public class Player : MonoBehaviour
             {
                 isGorilla = true;
                 gorillaTimer = gorillaTime;
+                sr.sprite = gorillaSprite;
+                levoUvo.GetComponent<LineRenderer>().enabled = false;
+                desnoUvo.GetComponent<LineRenderer>().enabled = false;
             }
 
             Destroy(collision.gameObject);
         }
-        if (collision.gameObject.CompareTag("GorillaSmash") && !isGorilla)
+        if (collision.gameObject.CompareTag("GorillaSmash") && !isGorilla && IsGrounded())
         {
-            isStunned = true;
+            Umri();
             stunTimer = gorillaStunTime;
         }
         if (collision.gameObject.CompareTag("Zip"))
@@ -399,5 +438,23 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(collisionPower * randSmer, rb.velocity.y);
             seVozi = 1;
         }
+    }
+
+    public void Umri()
+    {
+        Instantiate(blood, transform.position, Quaternion.AngleAxis(90, new Vector3(0, 0, 1)));
+        if (!jeKlon)
+        {
+            if (MainMenu.lastDied == teamNo)
+            {
+                MainMenu.numberOfPlayers = 1;
+            }
+            else
+            {
+                MainMenu.lastDied = teamNo;
+                MainMenu.numberOfPlayers--;
+            }
+        }
+        Destroy(gameObject);
     }
 }
