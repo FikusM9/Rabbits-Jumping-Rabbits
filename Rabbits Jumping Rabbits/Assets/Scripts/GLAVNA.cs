@@ -25,7 +25,6 @@ public class glavna : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        print(MainMenu.numberOfPlayers);
         if (MainMenu.numberOfPlayers == 1)
         {
             DeathScreen.SetActive(true);

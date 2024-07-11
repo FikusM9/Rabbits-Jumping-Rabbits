@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
     public GameObject dustGorilla;
     public ParticleSystem blood;
     public GameObject UFO;
+    public GameObject Krila;
 
     private int canJump;
     private float canPort;
@@ -88,8 +89,12 @@ public class Player : MonoBehaviour
     private float stunTimer;
     private bool isStunned;
     private float seVozi;
+    private KriloScript KriloScript;
     void Start()
     {
+        KriloScript=Krila.GetComponent<KriloScript>();
+        Krila.SetActive(false);
+
         mozeKlonirat = true;
 
         if (transform.parent != null)
@@ -188,6 +193,7 @@ public class Player : MonoBehaviour
         else
         {
             isFlappy = false;
+            Krila.SetActive(false);
         }
 
         if (eggTimer > 0) eggTimer -= Time.fixedDeltaTime;
@@ -257,6 +263,8 @@ public class Player : MonoBehaviour
         else if (isFlappy && !IsGrounded())
         {
             rb.velocity = new Vector2(flappyPower * (Circle.transform.position - transform.position).normalized.x, flappyPower * (Circle.transform.position - transform.position).normalized.y);
+            Krila.GetComponent<Animator>().Play("krila");
+            print("dfs");
         }
         else if (isEgging && !IsGrounded() && canShootEgg)
         {
@@ -372,6 +380,7 @@ public class Player : MonoBehaviour
             {
                 isFlappy = true;
                 flappyTimer = flappyTime;
+                Krila.SetActive(true);
             }
 
             if (collision.gameObject.CompareTag("Egg"))

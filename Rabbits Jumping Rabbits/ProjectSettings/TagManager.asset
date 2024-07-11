@@ -27,6 +27,8 @@ TagManager:
   - Portal1
   - Portal2
   - JumpT
+  - levokrilo
+  - desnokrilo
   layers:
   - Default
   - TransparentFX
