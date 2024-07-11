@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
     public GameObject dust;
     public GameObject dustGorilla;
     public ParticleSystem blood;
+    public GameObject UFO;
 
     private int canJump;
     private float canPort;
@@ -107,9 +108,10 @@ public class Player : MonoBehaviour
         {
             gameObject.layer = transform.parent.gameObject.layer + 4;
             layerNumber = transform.parent.gameObject.GetComponent<Player>().layerNumber + 4;
-            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             sr.sprite = klonSprite;
+            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
+
     }
 
     void FixedUpdate()
@@ -338,7 +340,8 @@ public class Player : MonoBehaviour
             if (collision.gameObject.CompareTag("Doubler") && !jeKlon && mozeKlonirat)
             {
                 mozeKlonirat = false;
-                Instantiate(gameObject, new Vector3(0, 20, 0), transform.rotation, transform);
+                Instantiate(UFO, MainMenu.UFOstart.position, MainMenu.UFOstart.rotation, transform);
+
             }
 
             if (collision.gameObject.CompareTag("Big"))
@@ -438,6 +441,11 @@ public class Player : MonoBehaviour
             rb.velocity = new Vector2(collisionPower * randSmer, rb.velocity.y);
             seVozi = 1;
         }
+    }
+
+    public void Kloniraj(Vector3 pos)
+    {
+        Instantiate(gameObject, pos, transform.rotation, transform);
     }
 
     public void Umri()

@@ -8,6 +8,9 @@ public class MainMenu : MonoBehaviour
 
     public static int numberOfPlayers;
     public static int lastDied;
+    public static Transform UFOstart;
+    public static Transform UFOend;
+    public static Transform UFOstop;
     void Start()
     {
         

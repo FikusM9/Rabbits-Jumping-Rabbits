@@ -267,7 +267,7 @@ MonoBehaviour:
   dust: {fileID: 2092251502709203536, guid: 5ba60c808141f974e89242995e92b5b8, type: 3}
   dustGorilla: {fileID: 2092251502709203536, guid: c2169b56574df3c47beff3f97ccfadaa, type: 3}
   blood: {fileID: 7891200847135524218, guid: b6763cb3879e3794385bcc5318a3fef2, type: 3}
-  animator: {fileID: 6708741388770829157}
+  UFO: {fileID: 3599298163020712104, guid: 4167420496b63634b901508d5c7ffe2b, type: 3}
 --- !u!95 &6708741388770829157
 Animator:
   serializedVersion: 5
