@@ -90,6 +90,7 @@ public class Player : MonoBehaviour
     private bool isStunned;
     private float seVozi;
     private KriloScript KriloScript;
+    private bool mrtav;
     void Start()
     {
         KriloScript=Krila.GetComponent<KriloScript>();
@@ -121,6 +122,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+       // print(MainMenu.lastDied);
         if(IsGrounded() && smashingDown)
         {
             Instantiate(dust, transform.position+new Vector3(0,-1.5f,0), dust.transform.rotation);
@@ -264,7 +266,6 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector2(flappyPower * (Circle.transform.position - transform.position).normalized.x, flappyPower * (Circle.transform.position - transform.position).normalized.y);
             Krila.GetComponent<Animator>().Play("krila");
-            print("dfs");
         }
         else if (isEgging && !IsGrounded() && canShootEgg)
         {
@@ -409,9 +410,9 @@ public class Player : MonoBehaviour
         {
             seVozi = 0.6f;
         }
-        if (collision.gameObject.CompareTag("kill"))
+        if (collision.gameObject.CompareTag("kill") && !mrtav)
         {
-            Destroy(gameObject);
+            Umri();
         }
         if (collision.gameObject.CompareTag("Portal1") && canPort >= 0.5f)
         {
@@ -459,6 +460,8 @@ public class Player : MonoBehaviour
 
     public void Umri()
     {
+        mrtav = true;
+        print("umro");
         Instantiate(blood, transform.position, Quaternion.AngleAxis(90, new Vector3(0, 0, 1)));
         if (!jeKlon)
         {
@@ -473,5 +476,6 @@ public class Player : MonoBehaviour
             }
         }
         Destroy(gameObject);
+        print(MainMenu.numberOfPlayers);
     }
 }

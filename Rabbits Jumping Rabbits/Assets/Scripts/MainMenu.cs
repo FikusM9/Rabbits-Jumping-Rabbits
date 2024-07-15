@@ -13,7 +13,7 @@ public class MainMenu : MonoBehaviour
     public static Transform UFOstop;
     void Start()
     {
-        
+        lastDied = -1;
     }
 
     public void Play2p()
